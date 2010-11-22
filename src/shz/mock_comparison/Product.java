@@ -12,6 +12,10 @@ public class Product {
 		_price = price;
 	}
 
+	public Product(String id) {
+		_id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,5 +62,4 @@ public class Product {
 		return true;
 	}
 
-	
 }

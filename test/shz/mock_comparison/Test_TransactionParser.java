@@ -53,12 +53,35 @@ public class Test_TransactionParser {
 	}
 	
 	@Test
+	public void should_Parse_Update_Product_Transaction_Parameters() {
+		// When
+		UpdateProductTransaction transaction = (UpdateProductTransaction) parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		
+		// Then
+		Product actualProduct = transaction.getProduct();
+		Product expectedProduct = new Product("0000001","Bogus Product",1200.99);
+		assertThat(actualProduct,equalTo(expectedProduct));		
+	}
+
+	
+	@Test
 	public void should_Parse_Delete_Product_Transaction() {
 		// When
 		Transaction transaction = parser.parse(DELETE_PRODUCT_0000001);
 		
 		// Then
 		assertThat(transaction, instanceOf(DeleteProductTransaction.class));
+	}
+
+	@Test
+	public void should_Parse_Delete_Product_Transaction_Parameters() {
+		// When
+		DeleteProductTransaction transaction = (DeleteProductTransaction) parser.parse(DELETE_PRODUCT_0000001);
+		
+		// Then
+		Product actualProduct = transaction.getProduct();
+		Product expectedProduct = new Product("0000001");
+		assertThat(actualProduct,equalTo(expectedProduct));		
 	}
 	
 	@Test

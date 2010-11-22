@@ -2,18 +2,16 @@ package shz.mock_comparison;
 
 public class TransactionParser {
 
+	private TransactionFactory _transactionFactory;
+
+	public TransactionParser() {
+		_transactionFactory = new TransactionFactory();
+	}
+
 	public Transaction parse(String stringToParse) {
 		String[] tokens = parseString(stringToParse);
 		String[] arguments = extractArgumentsFromTokens(tokens);
-		if ("CreateProduct".equals(tokens[0])){
-			return new CreateProductTransaction(arguments);
-			
-		}else if ("UpdateProduct".equals(tokens[0])){
-			return new UpdateProductTransaction();
-		}else if ("DeleteProduct".equals(tokens[0])){
-			return new DeleteProductTransaction();			
-		}
-		throw new InvalidTransactionIdentifier();
+		return _transactionFactory.get(tokens[0], arguments);
 	}
 
 	private String[] parseString(String stringToParse) {

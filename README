@@ -1,0 +1,7 @@
+Description:
+============
+This is a test application that I use to try out various Mock Frameworks.
+
+Change log:
+===========
+Version 0.01: Initial release using Mockito Only

@@ -1,0 +1,21 @@
+Rough idea:
+===========
+=> Write an application that reads "batch transactions" from a file and executes them.
+=> A file can be either plain text or XML or JSON
+=> The transactions are executed either in memory or persisted into an XML file or in a database.
+
+=> Possible transactions:
+	=> Create product
+	=> Update product
+	=> Remove product 
+
+Method:
+=======
+=> Write the whole application TDD
+=> Make use of Mock Frameworks
+=> Write it in such a way that is is possible to easily substitute mock frameworks
+
+TO DO:
+======
+
+=>

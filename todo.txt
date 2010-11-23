@@ -18,4 +18,5 @@ Method:
 TO DO:
 ======
 
-=>
+=> Read transactions from a text file
+=> Read transactions from an XML file

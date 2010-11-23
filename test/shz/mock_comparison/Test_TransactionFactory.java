@@ -1,10 +1,10 @@
 package shz.mock_comparison;
 
-import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.fail;
+
+import org.junit.Test;
 
 /**
  * @author Stephan Huez
@@ -47,11 +47,13 @@ public class Test_TransactionFactory {
 
 	@Test
 	public void should_Fail_On_Unkown_Key() {
-		// Given
+		// When
 		try {
 			new TransactionFactory().get("Bogus", null);
 			fail("Should have raised an exception");
 		} catch (InvalidTransactionIdentifier e) {
+			// Then 
+			// Should fail
 		}
 	}
 }

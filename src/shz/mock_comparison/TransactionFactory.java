@@ -22,7 +22,7 @@ public class TransactionFactory {
 		try {
 			return (Constructor<?>) clazz.getConstructors()[0];
 		} catch (SecurityException e) {
-			throw new FactoryException(
+			throw new ImpossibleFactoryInstantiation(
 					"Failed to retrieve constructor for class", e);
 		}
 	}
@@ -34,7 +34,7 @@ public class TransactionFactory {
 				return (Transaction) constructor
 						.newInstance(new Object[] { arguments });
 			} catch (Exception e) {
-				throw new FactoryException(
+				throw new ImpossibleFactoryInstantiation(
 						"Failed to instantiate class for key " + key, e);
 			}
 		}

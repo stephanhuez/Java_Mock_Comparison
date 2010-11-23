@@ -1,10 +1,10 @@
 package shz.mock_comparison;
 
-public class TransactionParser {
+public class TextTransactionParser {
 
 	private TransactionFactory _transactionFactory;
 
-	public TransactionParser() {
+	public TextTransactionParser() {
 		_transactionFactory = new TransactionFactory();
 	}
 

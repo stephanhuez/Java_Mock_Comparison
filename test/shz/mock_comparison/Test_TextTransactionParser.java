@@ -1,35 +1,36 @@
 package shz.mock_comparison;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.fail;
 
 /**
  * @author Stephan Huez
  * 
  */
-public class Test_TransactionParser {
+public class Test_TextTransactionParser {
 
 	private static final String CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "CreateProduct|0000001|Bogus Product|1200.99";
 	private static final String UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "UpdateProduct|0000001|Bogus Product|1200.99";
 	private static final String DELETE_PRODUCT_0000001 = "DeleteProduct|0000001";
-	private TransactionParser parser;
+	private TextTransactionParser parser;
 
 	@Before
 	public void given(){
-		parser = new TransactionParser();
+		parser = new TextTransactionParser();
 	}
 	
 	@Test
 	public void should_Parse_Create_Product_Transaction() {
 		// When
-		Transaction transaction = parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		CreateProductTransaction transaction = (CreateProductTransaction) parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
-		assertThat(transaction, instanceOf(CreateProductTransaction.class));
+		assertThat(transaction, notNullValue());
 	}
 
 	@Test
@@ -46,10 +47,10 @@ public class Test_TransactionParser {
 	@Test
 	public void should_Parse_Update_Product_Transaction() {
 		// When
-		Transaction transaction = parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		UpdateProductTransaction transaction = (UpdateProductTransaction) parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
-		assertThat(transaction, instanceOf(UpdateProductTransaction.class));
+		assertThat(transaction, notNullValue());
 	}
 	
 	@Test
@@ -67,10 +68,10 @@ public class Test_TransactionParser {
 	@Test
 	public void should_Parse_Delete_Product_Transaction() {
 		// When
-		Transaction transaction = parser.parse(DELETE_PRODUCT_0000001);
+		DeleteProductTransaction transaction = (DeleteProductTransaction) parser.parse(DELETE_PRODUCT_0000001);
 		
 		// Then
-		assertThat(transaction, instanceOf(DeleteProductTransaction.class));
+		assertThat(transaction, notNullValue());
 	}
 
 	@Test

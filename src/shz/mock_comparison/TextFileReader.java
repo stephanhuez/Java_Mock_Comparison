@@ -3,7 +3,7 @@ package shz.mock_comparison;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class TextFileReader {
+public class TextFileReader implements TransactionSourceReader {
 
 	private InputStream _inputStream;
 	private Scanner _scanner;
@@ -13,7 +13,8 @@ public class TextFileReader {
 		_scanner = new Scanner(_inputStream);
 	}
 
-	public Boolean hasNextLine() {
+	@Override
+	public Boolean hasNextElement() {
 		return _scanner.hasNextLine();
 	}
 
@@ -21,7 +22,8 @@ public class TextFileReader {
 		_scanner.close();
 	}
 
-	public String nextLine() {
+	@Override
+	public String nextElement() {
 		String nextLine =  _scanner.nextLine();
 		System.err.println(nextLine);
 		return nextLine;

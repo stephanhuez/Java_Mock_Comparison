@@ -16,34 +16,34 @@ import org.junit.Test;
  * @author Stephan Huez
  * 
  */
-public class Test_TextTransactionReader {
+public class Test_TransactionReader {
 	
-	private TextFileReader textFileReaderStub;
-	private TextTransactionParser parserStub;
-	private TextTransactionReader transactionReader;
+	private TransactionSourceReader sourceReaderStub;
+	private TransactionParser parserStub;
+	private TransactionReader transactionReader;
 
 	@Before
 	public void given(){
-		parserStub = mock(TextTransactionParser.class);
-		textFileReaderStub = mock(TextFileReader.class);
-		transactionReader = new TextTransactionReader(
-				textFileReaderStub, parserStub);
+		parserStub = mock(TransactionParser.class);
+		sourceReaderStub = mock(TransactionSourceReader.class);
+		transactionReader = new TransactionReader(
+				sourceReaderStub, parserStub);
 		
 	}
 
 	@Test
 	public void should_Report_No_More_Transactions() {
 		// Given
-		when(textFileReaderStub.hasNextLine()).thenReturn(false);
+		when(sourceReaderStub.hasNextElement()).thenReturn(false);
 
 		// Then
 		assertThat(transactionReader.hasNextTransaction(), is(false));
 	}
 
 	@Test
-	public void should_Report_More_Transactions() {
+	public void should_Report_More_Transactions_Left() {
 		// Given
-		when(textFileReaderStub.hasNextLine()).thenReturn(true);
+		when(sourceReaderStub.hasNextElement()).thenReturn(true);
 
 		// Then
 		assertThat(transactionReader.hasNextTransaction(), is(true));
@@ -51,9 +51,9 @@ public class Test_TextTransactionReader {
 	}	
 	
 	@Test
-	public void should_Return_Three_Different_Transaction_For_Three_Lines_In_File() {
+	public void should_Return_Three_Different_Transaction_For_Three_Elements_In_Source() {
 		// Given
-		when(textFileReaderStub.hasNextLine())
+		when(sourceReaderStub.hasNextElement())
 		        .thenReturn(true)
 				.thenReturn(true)
 				.thenReturn(true)
@@ -80,7 +80,7 @@ public class Test_TextTransactionReader {
 	@Test
 	public void should_Fail_When_Asking_For_Transaction_When_No_More(){
 		// Given
-		when(textFileReaderStub.hasNextLine()).thenReturn(false);
+		when(sourceReaderStub.hasNextElement()).thenReturn(false);
 		
 		// When
 		try {

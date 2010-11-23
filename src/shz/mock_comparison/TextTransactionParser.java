@@ -1,6 +1,6 @@
 package shz.mock_comparison;
 
-public class TextTransactionParser {
+public class TextTransactionParser implements TransactionParser {
 
 	private TransactionFactory _transactionFactory;
 
@@ -8,8 +8,9 @@ public class TextTransactionParser {
 		_transactionFactory = new TransactionFactory();
 	}
 
-	public Transaction parse(String stringToParse) {
-		String[] tokens = parseString(stringToParse);
+	@Override
+	public Transaction parse(Object inputToParse) {
+		String[] tokens = parseString((String) inputToParse);
 		String[] arguments = extractArgumentsFromTokens(tokens);
 		return _transactionFactory.get(tokens[0], arguments);
 	}

@@ -17,7 +17,7 @@ public class Test_TextTransactionParser {
 	private static final String CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "CreateProduct|0000001|Bogus Product|1200.99";
 	private static final String UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "UpdateProduct|0000001|Bogus Product|1200.99";
 	private static final String DELETE_PRODUCT_0000001 = "DeleteProduct|0000001";
-	private TextTransactionParser parser;
+	private TransactionParser parser;
 
 	@Before
 	public void given(){

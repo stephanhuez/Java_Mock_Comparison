@@ -4,19 +4,22 @@ Rough idea:
 => A file can be either plain text or XML or JSON
 => The transactions are executed either in memory or persisted into an XML file or in a database.
 
-=> Possible transactions:
+=> Transactions:
 	=> Create product
 	=> Update product
-	=> Remove product 
+	=> Delete product 
 
 Method:
 =======
 => Write the whole application TDD
-=> Make use of Mock Frameworks
+=> Make use of Mock Frameworks to illustrate their usage
 => Write it in such a way that is is possible to easily substitute mock frameworks
-
+=> Let the code be an example of clean code :-)
 TO DO:
 ======
 
-=> Read transactions from a text file
-=> Read transactions from an XML file
+=> [TODO] Read transactions from an XML file
+=> [TODO] Refactor to a more canonical form of constructor parameters for Transactions
+=> [TODO] Use packages to organise the code
+=> [DONE] Refactor the TransactionReader to be independent of the Input source and Parser
+=> [DONE] Read transactions from a text file

@@ -31,25 +31,25 @@ public class Test_TextFileReader {
 	@Test
 	public void should__Have_Next_Line() {
 		// Then
-		assertThat(reader.hasNextLine(), is(true));
+		assertThat(reader.hasNextElement(), is(true));
 	}
 
 	@Test
 	public void should__Have_No_More_Line() {
 		// When
-		reader.nextLine();
-		reader.nextLine();
-		reader.nextLine();
+		reader.nextElement();
+		reader.nextElement();
+		reader.nextElement();
 		
 		// Then
-		assertThat(reader.hasNextLine(), is(false));
+		assertThat(reader.hasNextElement(), is(false));
 	}
 	
 	@Test
 	public void should_Read_Lines_From_File(){
 		// Then
-		assertThat(reader.nextLine(),equalTo("I am a line"));
-		assertThat(reader.nextLine(),equalTo("I am another line"));
-		assertThat(reader.nextLine(),equalTo("I am yet another line"));
+		assertThat(reader.nextElement(),equalTo("I am a line"));
+		assertThat(reader.nextElement(),equalTo("I am another line"));
+		assertThat(reader.nextElement(),equalTo("I am yet another line"));
 	}
 }

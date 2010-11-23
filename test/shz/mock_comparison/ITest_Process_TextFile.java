@@ -12,24 +12,24 @@ import org.junit.Test;
 
 public class ITest_Process_TextFile {
 
-	private TextFileReader textFileReader;
+	private TextFileReader sourceReader;
 	private InputStream inputStream;
-	private TextTransactionParser textTransactionParser;
-	private TextTransactionReader transactionReader;
+	private TransactionParser transactionParser;
+	private TransactionReader transactionReader;
 
 	@Before
 	public void given() {
 		inputStream = ClassLoader
 				.getSystemResourceAsStream("shz/mock_comparison/Transactions.txt");
-		textFileReader = new TextFileReader(inputStream);
-		textTransactionParser = new TextTransactionParser();
-		transactionReader = new TextTransactionReader(textFileReader,
-				textTransactionParser);
+		sourceReader = new TextFileReader(inputStream);
+		transactionParser = new TextTransactionParser();
+		transactionReader = new TransactionReader(sourceReader,
+				transactionParser);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		textFileReader.close();
+		sourceReader.close();
 		inputStream.close();
 	}
 

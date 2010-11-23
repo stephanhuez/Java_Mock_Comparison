@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+	<transaction>
+		<type>CreateProduct</type>
+		<id>000001</id>
+		<description>Product One</description>
+		<price>76.49</price>
+	</transaction>
+	<transaction >
+		<type>UpdateProduct</type>
+		<id>000001</id>
+		<description>Product One</description>
+        <price>134.98</price>
+	</transaction>
+	<transaction>
+		<type>CreateProduct</type>
+		<id>000002</id>
+		<description>Product Two</description>
+        <price>999.99</price>
+	</transaction>
+	<transaction>
+		<type>CreateProduct</type>
+		<id>000003</id>
+		<description>Product Three</description>
+        <price>194.98</price>
+	</transaction>
+	<transaction>
+		<type>UpdateProduct</type>
+		<id>000003</id>
+		<description>Product Three Reviewed</description>
+        <price>234.98</price>
+	</transaction>
+</transactions>

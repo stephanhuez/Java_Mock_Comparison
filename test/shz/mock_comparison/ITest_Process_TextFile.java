@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ITest_Process_TextFile {
 
-	private TextFileReader sourceReader;
+	private TextSourceReader sourceReader;
 	private InputStream inputStream;
 	private TransactionParser transactionParser;
 	private TransactionReader transactionReader;
@@ -21,7 +21,7 @@ public class ITest_Process_TextFile {
 	public void given() {
 		inputStream = ClassLoader
 				.getSystemResourceAsStream("shz/mock_comparison/Transactions.txt");
-		sourceReader = new TextFileReader(inputStream);
+		sourceReader = new TextSourceReader(inputStream);
 		transactionParser = new TextTransactionParser();
 		transactionReader = new TransactionReader(sourceReader,
 				transactionParser);

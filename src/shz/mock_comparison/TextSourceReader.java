@@ -3,12 +3,12 @@ package shz.mock_comparison;
 import java.io.InputStream;
 import java.util.Scanner;
 
-public class TextFileReader implements TransactionSourceReader {
+public class TextSourceReader implements TransactionSourceReader {
 
 	private InputStream _inputStream;
 	private Scanner _scanner;
 
-	public TextFileReader(InputStream inputStream) {
+	public TextSourceReader(InputStream inputStream) {
 		_inputStream = inputStream;
 		_scanner = new Scanner(_inputStream);
 	}

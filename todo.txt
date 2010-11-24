@@ -18,7 +18,8 @@ Method:
 TO DO:
 ======
 
-=> [TODO] Read transactions from an XML file
+=> [ONGOING] Read transactions from an XML file
+=> [TODO] Factor out a BaseSourceReader test fixture to test generic behaviour
 => [TODO] Refactor to a more canonical form of constructor parameters for Transactions
 => [TODO] Use packages to organise the code
 => [DONE] Refactor the TransactionReader to be independent of the Input source and Parser

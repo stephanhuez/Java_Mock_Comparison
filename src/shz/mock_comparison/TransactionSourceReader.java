@@ -4,6 +4,6 @@ public interface TransactionSourceReader {
 
 	public abstract Boolean hasNextElement();
 
-	public abstract String nextElement();
+	public abstract Object nextElement();
 
 }

@@ -17,10 +17,11 @@ Method:
 => Let the code be an example of clean code :-)
 TO DO:
 ======
-
-=> [ONGOING] Read transactions from an XML file
+=> [TODO] Clean up the interface SourceReader
+=> [TODO] Parse the XML Element from XmlSourceReader
 => [TODO] Factor out a BaseSourceReader test fixture to test generic behaviour
 => [TODO] Refactor to a more canonical form of constructor parameters for Transactions
 => [TODO] Use packages to organise the code
+=> [DONE] Read transactions from an XML file
 => [DONE] Refactor the TransactionReader to be independent of the Input source and Parser
 => [DONE] Read transactions from a text file

@@ -15,6 +15,7 @@ Method:
 => Make use of Mock Frameworks to illustrate their usage
 => Write it in such a way that is is possible to easily substitute mock frameworks
 => Let the code be an example of clean code :-)
+
 TO DO:
 ======
 => [TODO] Clean up the interface SourceReader

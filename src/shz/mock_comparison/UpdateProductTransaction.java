@@ -1,16 +1,17 @@
 package shz.mock_comparison;
 
+import java.util.ArrayList;
+
 public class UpdateProductTransaction implements Transaction {
 
-	private Product _product;
+    private Product _product;
 
-	public UpdateProductTransaction(String[] arguments) {
-		_product = new Product(arguments[0], arguments[1],
-				Double.valueOf(arguments[2]));
-	}
+    public UpdateProductTransaction(ArrayList<String> arguments) {
+        _product = new Product(arguments.get(0), arguments.get(1), Double.valueOf(arguments.get(2)));
+    }
 
-	public Product getProduct() {
-		return _product;
-	}
+    public Product getProduct() {
+        return _product;
+    }
 
 }

@@ -25,7 +25,6 @@ public class TextSourceReader implements TransactionSourceReader {
 	@Override
 	public String nextElement() {
 		String nextLine =  _scanner.nextLine();
-		System.err.println(nextLine);
 		return nextLine;
 	}
 

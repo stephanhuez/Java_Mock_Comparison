@@ -17,17 +17,17 @@ public class Test_TextTransactionParser {
 	private static final String CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "CreateProduct|0000001|Bogus Product|1200.99";
 	private static final String UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "UpdateProduct|0000001|Bogus Product|1200.99";
 	private static final String DELETE_PRODUCT_0000001 = "DeleteProduct|0000001";
-	private TransactionParser parser;
+	private TransactionParser _parser;
 
 	@Before
 	public void given(){
-		parser = new TextTransactionParser();
+		_parser = new TextTransactionParser();
 	}
 	
 	@Test
 	public void should_Parse_Create_Product_Transaction() {
 		// When
-		CreateProductTransaction transaction = (CreateProductTransaction) parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		CreateProductTransaction transaction = (CreateProductTransaction) _parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
 		assertThat(transaction, notNullValue());
@@ -36,7 +36,7 @@ public class Test_TextTransactionParser {
 	@Test
 	public void should_Parse_Create_Product_Transaction_Parameters() {
 		// When
-		CreateProductTransaction transaction = (CreateProductTransaction) parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		CreateProductTransaction transaction = (CreateProductTransaction) _parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
 		Product actualProduct = transaction.getProduct();
@@ -47,7 +47,7 @@ public class Test_TextTransactionParser {
 	@Test
 	public void should_Parse_Update_Product_Transaction() {
 		// When
-		UpdateProductTransaction transaction = (UpdateProductTransaction) parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		UpdateProductTransaction transaction = (UpdateProductTransaction) _parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
 		assertThat(transaction, notNullValue());
@@ -56,7 +56,7 @@ public class Test_TextTransactionParser {
 	@Test
 	public void should_Parse_Update_Product_Transaction_Parameters() {
 		// When
-		UpdateProductTransaction transaction = (UpdateProductTransaction) parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
+		UpdateProductTransaction transaction = (UpdateProductTransaction) _parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
 		
 		// Then
 		Product actualProduct = transaction.getProduct();
@@ -68,7 +68,7 @@ public class Test_TextTransactionParser {
 	@Test
 	public void should_Parse_Delete_Product_Transaction() {
 		// When
-		DeleteProductTransaction transaction = (DeleteProductTransaction) parser.parse(DELETE_PRODUCT_0000001);
+		DeleteProductTransaction transaction = (DeleteProductTransaction) _parser.parse(DELETE_PRODUCT_0000001);
 		
 		// Then
 		assertThat(transaction, notNullValue());
@@ -77,7 +77,7 @@ public class Test_TextTransactionParser {
 	@Test
 	public void should_Parse_Delete_Product_Transaction_Parameters() {
 		// When
-		DeleteProductTransaction transaction = (DeleteProductTransaction) parser.parse(DELETE_PRODUCT_0000001);
+		DeleteProductTransaction transaction = (DeleteProductTransaction) _parser.parse(DELETE_PRODUCT_0000001);
 		
 		// Then
 		Product actualProduct = transaction.getProduct();
@@ -89,7 +89,7 @@ public class Test_TextTransactionParser {
 	public void should_Fail_To_Parse_Unkown_Transaction(){
 		// When
 		try{
-			parser.parse("Bogus");			
+			_parser.parse("Bogus");			
 			fail("Should have thrown an exception");
 		}catch(InvalidTransactionIdentifier iti){
 			// Then should raise an exception

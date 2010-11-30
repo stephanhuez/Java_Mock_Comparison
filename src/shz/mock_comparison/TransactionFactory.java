@@ -1,6 +1,7 @@
 package shz.mock_comparison;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class TransactionFactory {
@@ -27,18 +28,18 @@ public class TransactionFactory {
 		}
 	}
 
-	public Transaction get(String key, String[] arguments) {
-		if (_constructors.containsKey(key)) {
-			Constructor<?> constructor = _constructors.get(key);
-			try {
-				return (Transaction) constructor
-						.newInstance(new Object[] { arguments });
-			} catch (Exception e) {
-				throw new ImpossibleFactoryInstantiation(
-						"Failed to instantiate class for key " + key, e);
-			}
-		}
-		throw new InvalidTransactionIdentifier();
-	}
+    public Transaction get(String key, ArrayList<String> arguments) {
+        if (_constructors.containsKey(key)) {
+            Constructor<?> constructor = _constructors.get(key);
+            try {
+                return (Transaction) constructor
+                        .newInstance(new Object[] { arguments });
+            } catch (Exception e) {
+                throw new ImpossibleFactoryInstantiation(
+                        "Failed to instantiate class for key " + key, e);
+            }
+        }
+        throw new InvalidTransactionIdentifier();
+    }
 
 }

@@ -1,14 +1,16 @@
 package shz.mock_comparison;
 
+import java.util.ArrayList;
+
 public class DeleteProductTransaction implements Transaction {
 
-	private Product _product;
+    private Product _product;
 
-	public DeleteProductTransaction(String[] arguments) {
-		_product = new Product(arguments[0]);
-	}
+    public DeleteProductTransaction(ArrayList<String> arguments) {
+        _product = new Product(arguments.get(0));
+    }
 
-	public Product getProduct() {
-		return _product;
-	}
+    public Product getProduct() {
+        return _product;
+    }
 }

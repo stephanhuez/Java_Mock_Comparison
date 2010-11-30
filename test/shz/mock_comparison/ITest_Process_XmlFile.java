@@ -10,9 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ITest_Process_TextFile {
+public class ITest_Process_XmlFile {
 
-	private TextSourceReader _sourceReader;
+	private XmlSourceReader _sourceReader;
 	private InputStream _inputStream;
 	private TransactionParser _transactionParser;
 	private TransactionReader _transactionReader;
@@ -20,16 +20,15 @@ public class ITest_Process_TextFile {
 	@Before
 	public void given() {
 		_inputStream = ClassLoader
-				.getSystemResourceAsStream("shz/mock_comparison/Transactions.txt");
-		_sourceReader = new TextSourceReader(_inputStream);
-		_transactionParser = new TextTransactionParser();
+				.getSystemResourceAsStream("shz/mock_comparison/Transactions.xml");
+		_sourceReader = new XmlSourceReader(_inputStream);
+		_transactionParser = new XmlTransactionParser();
 		_transactionReader = new TransactionReader(_sourceReader,
 				_transactionParser);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_sourceReader.close();
 		_inputStream.close();
 	}
 
@@ -38,7 +37,7 @@ public class ITest_Process_TextFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionReader
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000001","Bogus Product A",1200.99);
+		Product expectedProduct = new Product("000001","Product One",76.49);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -48,7 +47,7 @@ public class ITest_Process_TextFile {
 		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionReader
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000001","Bogus Product AA",1100.99);
+		Product expectedProduct = new Product("000001","Product One",134.98);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -59,7 +58,7 @@ public class ITest_Process_TextFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionReader
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000002","Bogus Product BB",1200.99);
+		Product expectedProduct = new Product("000002","Product Two",999.99);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -68,15 +67,29 @@ public class ITest_Process_TextFile {
 		_transactionReader.nextTransaction();
 		_transactionReader.nextTransaction();
 		_transactionReader.nextTransaction();
-		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionReader
+		CreateProductTransaction transaction = (CreateProductTransaction) _transactionReader
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000002","Bogus Product B",2200.99);
+		Product expectedProduct = new Product("000003","Product Three",194.98);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
+    @Test
+    public void should_Return_Fifth_Transaction_In_File() {
+        _transactionReader.nextTransaction();
+        _transactionReader.nextTransaction();
+        _transactionReader.nextTransaction();
+        _transactionReader.nextTransaction();
+        UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionReader
+        .nextTransaction();
+        assertThat(transaction, notNullValue());
+        Product expectedProduct = new Product("000003","Product Three Reviewed",234.98);
+        assertThat(transaction.getProduct(),equalTo(expectedProduct));
+    }
+
 	@Test
-	public void should_Return_Fifth_Transaction_In_File() {
+	public void should_Return_Sixth_Transaction_In_File() {
+		_transactionReader.nextTransaction();
 		_transactionReader.nextTransaction();
 		_transactionReader.nextTransaction();
 		_transactionReader.nextTransaction();
@@ -85,7 +98,7 @@ public class ITest_Process_TextFile {
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
 		
-		Product expectedProduct = new Product("0000001");
+		Product expectedProduct = new Product("000001");
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 }

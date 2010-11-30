@@ -1,35 +1,61 @@
 package shz.spikes;
 
-import java.io.IOException;
 import java.io.InputStream;
 
-import nu.xom.Builder;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Elements;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class ReadXmlFile {
-	public static void main(String[] args) throws ValidityException,
-			ParsingException, IOException {
-		InputStream xmlFile = ClassLoader
-				.getSystemResourceAsStream("shz/spikes/Transactions.xml");
+    public static void main(String argv[]) {
 
-		Builder builder = new Builder();
+        try {
 
-		Document document = builder.build(xmlFile);
+            InputStream inputStream = ClassLoader.getSystemResourceAsStream("shz/mock_comparison/Transactions.xml");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputStream);
+            doc.getDocumentElement().normalize();
 
-		Element root = document.getRootElement();
+            Node root = doc.getDocumentElement();
+            System.out.println("Root element :" + root.getNodeName());
 
-		Elements entries = root.getChildElements();
+            NodeList nList = root.getChildNodes();
+            System.out.println("-----------------------");
+            System.out.println("nList.getLength() " + nList.getLength());
 
-		// print out the entries
-		for (int x = 0; x < entries.size(); x++) {
-			Element element = entries.get(x);
-			System.out.println(element.getLocalName());
-			System.out.println(element.getValue());
-		}
+            for (int temp = 0; temp < nList.getLength(); temp++) {
 
-	}
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element eElement = (Element) nNode;
+
+                    System.out.println(eElement.getNodeName());
+                    NodeList childNodes = eElement.getChildNodes();
+                    for (int i = 0; i < childNodes.getLength(); i++) {
+                        Node childNode = childNodes.item(i);
+                        if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                            Element childElement = (Element) childNode;
+                            System.out.println(childElement.getNodeName());
+                            System.out.println(childElement.getFirstChild().getNodeValue());                            
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String getTagValue(String sTag, Element eElement) {
+        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
+        Node nValue = (Node) nlList.item(0);
+        return nValue.getNodeValue();
+    }
 }

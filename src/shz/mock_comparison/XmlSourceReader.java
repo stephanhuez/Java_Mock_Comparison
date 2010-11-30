@@ -1,18 +1,24 @@
 package shz.mock_comparison;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
-import nu.xom.Builder;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Elements;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class XmlSourceReader implements TransactionSourceReader {
 
 	private InputStream _inputStream;
-	private Document _document;
-	private Elements _transactionElements;
 	private int _positionInElementList = 0;
+	private ArrayList<Node> _transactionElements;
+    private Node _root;
 
 	public XmlSourceReader(InputStream inputStream) {
 		_inputStream = inputStream;
@@ -20,26 +26,44 @@ public class XmlSourceReader implements TransactionSourceReader {
 	}
 
 	private void init() {
-		Builder builder = new Builder();
-
 		try {
-			_document = builder.build(_inputStream);
-			Element root = _document.getRootElement();
-			_transactionElements = root.getChildElements();
+			extractRoot();
+			extractNodeElements();
 		} catch (Exception e) {
 			throw new ImpossibleToOpenSource(e);
 		}
 
 	}
 
-	@Override
+    private void extractRoot() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory
+        		.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document document = dBuilder.parse(_inputStream);
+        document.getDocumentElement().normalize();
+        _root = document.getDocumentElement();
+    }
+
+	private void extractNodeElements() {
+	    _transactionElements = new ArrayList<Node>(); 
+        NodeList childNodes = _root.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node childNode = childNodes.item(i);
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                _transactionElements.add(childNode);
+            }
+        }
+    }
+
+    @Override
 	public Boolean hasNextElement() {
 		return _positionInElementList < _transactionElements.size();
 	}
 
 	@Override
-	public Element nextElement() {
+	public Node nextElement() {
 		return _transactionElements.get(_positionInElementList++);
 	}
+
 
 }

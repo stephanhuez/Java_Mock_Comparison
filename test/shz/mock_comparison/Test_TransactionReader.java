@@ -18,42 +18,42 @@ import org.junit.Test;
  */
 public class Test_TransactionReader {
 	
-	private TransactionSourceReader sourceReaderStub;
-	private TransactionParser parserStub;
-	private TransactionReader transactionReader;
+	private TransactionSourceReader _sourceReaderStub;
+	private TransactionParser _parserStub;
+	private TransactionReader _transactionReader;
 
 	@Before
 	public void given(){
-		parserStub = mock(TransactionParser.class);
-		sourceReaderStub = mock(TransactionSourceReader.class);
-		transactionReader = new TransactionReader(
-				sourceReaderStub, parserStub);
+		_parserStub = mock(TransactionParser.class);
+		_sourceReaderStub = mock(TransactionSourceReader.class);
+		_transactionReader = new TransactionReader(
+				_sourceReaderStub, _parserStub);
 		
 	}
 
 	@Test
 	public void should_Report_No_More_Transactions() {
 		// Given
-		when(sourceReaderStub.hasNextElement()).thenReturn(false);
+		when(_sourceReaderStub.hasNextElement()).thenReturn(false);
 
 		// Then
-		assertThat(transactionReader.hasNextTransaction(), is(false));
+		assertThat(_transactionReader.hasNextTransaction(), is(false));
 	}
 
 	@Test
 	public void should_Report_More_Transactions_Left() {
 		// Given
-		when(sourceReaderStub.hasNextElement()).thenReturn(true);
+		when(_sourceReaderStub.hasNextElement()).thenReturn(true);
 
 		// Then
-		assertThat(transactionReader.hasNextTransaction(), is(true));
+		assertThat(_transactionReader.hasNextTransaction(), is(true));
 
 	}	
 	
 	@Test
 	public void should_Return_Three_Different_Transaction_For_Three_Elements_In_Source() {
 		// Given
-		when(sourceReaderStub.hasNextElement())
+		when(_sourceReaderStub.hasNextElement())
 		        .thenReturn(true)
 				.thenReturn(true)
 				.thenReturn(true)
@@ -62,29 +62,29 @@ public class Test_TransactionReader {
 		Transaction expectedTransaction1 = mock(Transaction.class);
 		Transaction expectedTransaction2 = mock(Transaction.class);
 		Transaction expectedTransaction3 = mock(Transaction.class);
-		when(parserStub.parse(anyString()))
+		when(_parserStub.parse(anyString()))
 		        .thenReturn(expectedTransaction1)
 				.thenReturn(expectedTransaction2)
 				.thenReturn(expectedTransaction3);
 
 
 		// Then
-		assertThat(transactionReader.nextTransaction(),
+		assertThat(_transactionReader.nextTransaction(),
 				equalTo(expectedTransaction1));
-		assertThat(transactionReader.nextTransaction(),
+		assertThat(_transactionReader.nextTransaction(),
 				equalTo(expectedTransaction2));
-		assertThat(transactionReader.nextTransaction(),
+		assertThat(_transactionReader.nextTransaction(),
 				equalTo(expectedTransaction3));
 	}
 	
 	@Test
 	public void should_Fail_When_Asking_For_Transaction_When_No_More(){
 		// Given
-		when(sourceReaderStub.hasNextElement()).thenReturn(false);
+		when(_sourceReaderStub.hasNextElement()).thenReturn(false);
 		
 		// When
 		try {
-			transactionReader.nextTransaction();
+			_transactionReader.nextTransaction();
 			fail("Should have raised an exception");
 		} catch (NoMoreTransactionAvailable e) {
 			// Then

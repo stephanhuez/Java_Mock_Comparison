@@ -6,6 +6,5 @@
 	<classpathentry kind="lib" path="lib/hamcrest-all-1.3.0RC2.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.8.2.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
-	<classpathentry kind="lib" path="lib/xom-1.2.6.jar" sourcepath="/home/stephan/Development/API/XOM-1.2.6/src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

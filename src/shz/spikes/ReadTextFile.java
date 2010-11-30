@@ -12,7 +12,7 @@ public class ReadTextFile {
 
 		Scanner scanner = new Scanner(stream);
 		while (scanner.hasNext()) {
-			System.out.println("Line : " + scanner.nextLine());
+//			System.out.println("Line : " + scanner.nextLine());
 		}
 	}
 }

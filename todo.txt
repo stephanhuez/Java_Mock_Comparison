@@ -8,7 +8,6 @@ Rough idea:
 	=> Create product
 	=> Update product
 	=> Delete product
-	=> Export products
 
 Method:
 =======
@@ -22,7 +21,7 @@ TO DO:
 => Implement the CreateProduct Transaction
 => Implement the UpdateProduct Transaction
 => Implement the DeleteProduct Transaction 
-=> Implement the ExportProducts Transaction
+=> Add validations
 DONE:
 =====
 => Use packages to organise the code

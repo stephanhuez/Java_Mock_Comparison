@@ -3,6 +3,7 @@ package shz.mock_comparison._itest;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.mock;
 
 import java.io.InputStream;
 
@@ -10,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shz.mock_comparison.Repository;
+import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
 import shz.mock_comparison.TransactionIterator;
 import shz.mock_comparison.domain.Product;
@@ -32,7 +35,8 @@ public class ITest_Iterate_XmlFile {
 		_inputStream = ClassLoader
 				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.xml");
 		_sourceReader = new XmlSourceReader(_inputStream);
-		_transactionParser = new XmlTransactionParser(new TransactionFactoryImpl());
+        TransactionFactory transactionFactory = new TransactionFactoryImpl(mock(Repository.class));
+		_transactionParser = new XmlTransactionParser(transactionFactory);
 		_transactionIterator = new TransactionIterator(_sourceReader,
 				_transactionParser);
 	}

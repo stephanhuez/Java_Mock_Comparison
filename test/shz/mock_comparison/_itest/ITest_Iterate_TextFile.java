@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shz.mock_comparison.Repository;
+import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
 import shz.mock_comparison.TransactionIterator;
 import shz.mock_comparison.domain.Product;
@@ -19,6 +21,8 @@ import shz.mock_comparison.transaction.CreateProductTransaction;
 import shz.mock_comparison.transaction.DeleteProductTransaction;
 import shz.mock_comparison.transaction.TransactionFactoryImpl;
 import shz.mock_comparison.transaction.UpdateProductTransaction;
+
+import static org.mockito.Mockito.*;
 
 public class ITest_Iterate_TextFile {
 
@@ -32,7 +36,8 @@ public class ITest_Iterate_TextFile {
 		_inputStream = ClassLoader
 				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.txt");
 		_sourceReader = new TextSourceReader(_inputStream);
-		_transactionParser = new TextTransactionParser(new TransactionFactoryImpl());
+		TransactionFactory transactionFactory = new TransactionFactoryImpl(mock(Repository.class));
+		_transactionParser = new TextTransactionParser(transactionFactory);
 		_transactionIterator = new TransactionIterator(_sourceReader,
 				_transactionParser);
 	}

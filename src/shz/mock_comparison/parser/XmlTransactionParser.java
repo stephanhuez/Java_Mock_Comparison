@@ -8,6 +8,18 @@ import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
 
+/**
+ * Parses XML {@link Transaction} formatted as:
+ *      <CreateProduct>
+ *          <id>000001</id>
+ *          <description>Product One</description>
+ *          <price>76.49</price>
+ *      </CreateProduct>
+ * and uses a {@link TransactionFactory} to instantiate the {@link Transaction}.  
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class XmlTransactionParser implements TransactionParser {
 
     private TransactionFactory _transactionFactory;

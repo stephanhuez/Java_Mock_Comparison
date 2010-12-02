@@ -15,38 +15,43 @@ import org.xml.sax.SAXException;
 
 import shz.mock_comparison.TransactionSourceReader;
 
+/**
+ * Implementation of a {@link TransactionSourceReader} for xml files.
+ * 
+ * @author Stephan Huez
+ * 
+ */
 public class XmlSourceReader implements TransactionSourceReader {
 
-	private InputStream _inputStream;
-	private int _positionInElementList = 0;
-	private ArrayList<Node> _transactionElements;
+    private InputStream _inputStream;
+    private int _positionInElementList = 0;
+    private ArrayList<Node> _transactionElements;
     private Node _root;
 
-	public XmlSourceReader(InputStream inputStream) {
-		_inputStream = inputStream;
-		init();
-	}
+    public XmlSourceReader(InputStream inputStream) {
+        _inputStream = inputStream;
+        init();
+    }
 
-	private void init() {
-		try {
-			extractRoot();
-			extractNodeElements();
-		} catch (Exception e) {
-			throw new ImpossibleToOpenSource(e);
-		}
-	}
+    private void init() {
+        try {
+            extractRoot();
+            extractNodeElements();
+        } catch (Exception e) {
+            throw new ImpossibleToOpenSource(e);
+        }
+    }
 
     private void extractRoot() throws ParserConfigurationException, SAXException, IOException {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory
-        		.newInstance();
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.parse(_inputStream);
         document.getDocumentElement().normalize();
         _root = document.getDocumentElement();
     }
 
-	private void extractNodeElements() {
-	    _transactionElements = new ArrayList<Node>(); 
+    private void extractNodeElements() {
+        _transactionElements = new ArrayList<Node>();
         NodeList childNodes = _root.getChildNodes();
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node childNode = childNodes.item(i);
@@ -57,14 +62,13 @@ public class XmlSourceReader implements TransactionSourceReader {
     }
 
     @Override
-	public Boolean hasNextElement() {
-		return _positionInElementList < _transactionElements.size();
-	}
+    public Boolean hasNextElement() {
+        return _positionInElementList < _transactionElements.size();
+    }
 
-	@Override
-	public Node nextElement() {
-		return _transactionElements.get(_positionInElementList++);
-	}
-
+    @Override
+    public Node nextElement() {
+        return _transactionElements.get(_positionInElementList++);
+    }
 
 }

@@ -12,7 +12,7 @@ import org.junit.Test;
 import shz.mock_comparison.Repository;
 import shz.mock_comparison.transaction.CreateProductTransaction;
 import shz.mock_comparison.transaction.DeleteProductTransaction;
-import shz.mock_comparison.transaction.InvalidTransactionIdentifier;
+import shz.mock_comparison.transaction.InvalidTransactionKey;
 import shz.mock_comparison.transaction.TransactionFactoryImpl;
 import shz.mock_comparison.transaction.UpdateProductTransaction;
 
@@ -68,7 +68,7 @@ public class Test_TransactionFactory {
         try {
             newTransactionFactory().get("Bogus", new ArrayList<String>());
             fail("Should have raised an exception");
-        } catch (InvalidTransactionIdentifier e) {
+        } catch (InvalidTransactionKey e) {
             // Then
             // Should have thrown an exception
         }

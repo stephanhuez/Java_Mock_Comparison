@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 import shz.mock_comparison.TransactionSourceReader;
 
+/**
+ * Implementation of a {@link TransactionSourceReader} for text files.
+ * 
+ * @author Stephan Huez
+ * 
+ */
 public class TextSourceReader implements TransactionSourceReader {
 
 	private InputStream _inputStream;

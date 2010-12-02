@@ -6,6 +6,13 @@ import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
 
+/**
+ * Parses plain text {@link Transaction} formatted as: id|description|price and uses a {@link TransactionFactory}
+ * to instantiate the {@link Transaction}.  
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class TextTransactionParser implements TransactionParser {
 
     private TransactionFactory _transactionFactory;

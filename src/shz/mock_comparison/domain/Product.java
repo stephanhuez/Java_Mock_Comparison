@@ -1,5 +1,11 @@
 package shz.mock_comparison.domain;
 
+/**
+ * Represents a Product in the domain.
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class Product {
 
 	private double _price;

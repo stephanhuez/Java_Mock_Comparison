@@ -1,15 +1,23 @@
 package shz.mock_comparison.transaction;
 
-public class ImpossibleFactoryInstantiation extends RuntimeException {
+/**
+ * This exception is used to indicate that a factory failed to instantiate a
+ * {@link Transaction}.
+ * 
+ * @author Stephan Huez
+ * 
+ */
+public class FailedToInstantiateTransaction extends RuntimeException {
 
-	public ImpossibleFactoryInstantiation(String message) {
-		super(message);
-	}
+    private static final long serialVersionUID = -525170596022630786L;
 
-	public ImpossibleFactoryInstantiation(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public FailedToInstantiateTransaction(String message) {
+        super(message);
+    }
 
-	private static final long serialVersionUID = -525170596022630786L;
+    public FailedToInstantiateTransaction(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 
 }

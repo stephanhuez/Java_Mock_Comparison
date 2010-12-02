@@ -87,7 +87,7 @@ public class Test_TransactionIterator {
 		try {
 			_transactionReader.nextTransaction();
 			fail("Should have raised an exception");
-		} catch (NoMoreTransactionAvailable e) {
+		} catch (NoMoreTransactionInIterator e) {
 			// Then
 			// Should fail
 		}

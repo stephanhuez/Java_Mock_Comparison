@@ -6,6 +6,12 @@ import shz.mock_comparison.Repository;
 import shz.mock_comparison.Transaction;
 import shz.mock_comparison.domain.Product;
 
+/**
+ * This {@link Transaction} deletes a product.
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class DeleteProductTransaction implements Transaction {
 
     private Product _product;

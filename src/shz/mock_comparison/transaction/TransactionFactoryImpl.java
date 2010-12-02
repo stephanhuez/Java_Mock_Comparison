@@ -8,6 +8,12 @@ import shz.mock_comparison.Repository;
 import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 
+/**
+ * This class implements a {@link TransactionFactory}.
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class TransactionFactoryImpl implements TransactionFactory {
 
 	private ConcurrentHashMap<String, Constructor<?>> _constructors;
@@ -30,12 +36,16 @@ public class TransactionFactoryImpl implements TransactionFactory {
 
     private Constructor<?> getConstructor(Class<?> clazz) {
 		try {
-			return (Constructor<?>) clazz.getConstructors()[0];
+			return getFirstConstructorInList(clazz);
 		} catch (SecurityException e) {
-			throw new ImpossibleFactoryInstantiation(
+			throw new FailedToInstantiateTransaction(
 					"Failed to retrieve constructor for class", e);
 		}
 	}
+
+    private Constructor<?> getFirstConstructorInList(Class<?> clazz) {
+        return (Constructor<?>) clazz.getConstructors()[0];
+    }
 
     @Override
     public Transaction get(String key, ArrayList<String> arguments) {
@@ -43,13 +53,23 @@ public class TransactionFactoryImpl implements TransactionFactory {
             Constructor<?> constructor = _constructors.get(key);
             try {
                 return (Transaction) constructor
-                        .newInstance(new Object[] { arguments,_repository });
+                        .newInstance(buildConstructorArguments(arguments));
             } catch (Exception e) {
-                throw new ImpossibleFactoryInstantiation(
+                throw new FailedToInstantiateTransaction(
                         "Failed to instantiate class for key " + key, e);
             }
         }
-        throw new InvalidTransactionIdentifier();
+        throw new InvalidTransactionKey();
+    }
+
+    /**
+     * The constructor takes two parameters by convention.
+     * 
+     * @param arguments
+     * @return
+     */
+    private Object[] buildConstructorArguments(ArrayList<String> arguments) {
+        return new Object[] { arguments,_repository };
     }
 
 }

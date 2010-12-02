@@ -11,4 +11,3 @@ First version with in memory repository and the following transactions:
     => Create Product
     => Update Product
     => Delete Product
-    => Export Products 

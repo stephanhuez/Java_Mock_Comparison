@@ -7,14 +7,13 @@ import org.w3c.dom.Node;
 import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
-import shz.mock_comparison.transaction.TransactionFactoryImpl;
 
 public class XmlTransactionParser implements TransactionParser {
 
     private TransactionFactory _transactionFactory;
 
-    public XmlTransactionParser() {
-        _transactionFactory = new TransactionFactoryImpl();
+    public XmlTransactionParser(TransactionFactory transactionFactory) {
+        _transactionFactory = transactionFactory;
     }
 
     @Override

@@ -1,105 +1,91 @@
 package shz.mock_comparison.parser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.fail;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import shz.mock_comparison.TransactionParser;
-import shz.mock_comparison.domain.Product;
-import shz.mock_comparison.transaction.CreateProductTransaction;
-import shz.mock_comparison.transaction.DeleteProductTransaction;
-import shz.mock_comparison.transaction.InvalidTransactionIdentifier;
-import shz.mock_comparison.transaction.UpdateProductTransaction;
+import shz.mock_comparison.Transaction;
+import shz.mock_comparison.TransactionFactory;
 
 /**
  * @author Stephan Huez
  * 
  */
+@SuppressWarnings("serial")
 public class Test_TextTransactionParser {
 
-	private static final String CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "CreateProduct|0000001|Bogus Product|1200.99";
-	private static final String UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99 = "UpdateProduct|0000001|Bogus Product|1200.99";
-	private static final String DELETE_PRODUCT_0000001 = "DeleteProduct|0000001";
-	private TransactionParser _parser;
+    private TextTransactionParser _parser;
+    private TransactionFactory _transactionFactoryStub;
+    private Transaction _transactionStub;
 
-	@Before
-	public void given(){
-		_parser = new TextTransactionParser();
-	}
-	
-	@Test
-	public void should_Parse_Create_Product_Transaction() {
-		// When
-		CreateProductTransaction transaction = (CreateProductTransaction) _parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
-		
-		// Then
-		assertThat(transaction, notNullValue());
-	}
+    @Before
+    public void given() {
+        _transactionFactoryStub = mock(TransactionFactory.class);
+        _transactionStub = mock(Transaction.class);
+        _parser = new TextTransactionParser(_transactionFactoryStub);
+    }
 
-	@Test
-	public void should_Parse_Create_Product_Transaction_Parameters() {
-		// When
-		CreateProductTransaction transaction = (CreateProductTransaction) _parser.parse(CREATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
-		
-		// Then
-		Product actualProduct = transaction.getProduct();
-		Product expectedProduct = new Product("0000001","Bogus Product",1200.99);
-		assertThat(actualProduct,equalTo(expectedProduct));		
-	}
-	
-	@Test
-	public void should_Parse_Update_Product_Transaction() {
-		// When
-		UpdateProductTransaction transaction = (UpdateProductTransaction) _parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
-		
-		// Then
-		assertThat(transaction, notNullValue());
-	}
-	
-	@Test
-	public void should_Parse_Update_Product_Transaction_Parameters() {
-		// When
-		UpdateProductTransaction transaction = (UpdateProductTransaction) _parser.parse(UPDATE_PRODUCT_0000001_BOGUS_PRODUCT_1200_99);
-		
-		// Then
-		Product actualProduct = transaction.getProduct();
-		Product expectedProduct = new Product("0000001","Bogus Product",1200.99);
-		assertThat(actualProduct,equalTo(expectedProduct));		
-	}
+    @Test
+    public void should_Parse_Create_Product_Transaction() {
+        // Given
+        ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                add("0000001");
+                add("Bogus Product");
+                add("1200.99");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("CreateProduct"), eq(arguments))).thenReturn(
+                _transactionStub);
 
-	
-	@Test
-	public void should_Parse_Delete_Product_Transaction() {
-		// When
-		DeleteProductTransaction transaction = (DeleteProductTransaction) _parser.parse(DELETE_PRODUCT_0000001);
-		
-		// Then
-		assertThat(transaction, notNullValue());
-	}
+        // When
+        Transaction transaction = _parser.parse("CreateProduct|0000001|Bogus Product|1200.99");
 
-	@Test
-	public void should_Parse_Delete_Product_Transaction_Parameters() {
-		// When
-		DeleteProductTransaction transaction = (DeleteProductTransaction) _parser.parse(DELETE_PRODUCT_0000001);
-		
-		// Then
-		Product actualProduct = transaction.getProduct();
-		Product expectedProduct = new Product("0000001");
-		assertThat(actualProduct,equalTo(expectedProduct));		
-	}
-	
-	@Test
-	public void should_Fail_To_Parse_Unkown_Transaction(){
-		// When
-		try{
-			_parser.parse("Bogus");			
-			fail("Should have thrown an exception");
-		}catch(InvalidTransactionIdentifier iti){
-			// Then should raise an exception
-		}
-	}
+        // Then
+        assertThat(transaction, is(_transactionStub));
+    }
+
+    @Test
+    public void should_Parse_Update_Product_Transaction() {
+        // Given
+        ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                add("0000001");
+                add("Bogus Product");
+                add("1200.99");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("UpdateProduct"), eq(arguments))).thenReturn(
+                _transactionStub);
+
+        // When
+        Transaction transaction = _parser.parse("UpdateProduct|0000001|Bogus Product|1200.99");
+
+        // Then
+        assertThat(transaction, is(_transactionStub));
+    }
+
+    @Test
+    public void should_Parse_Delete_Product_Transaction() {
+        // Given
+        ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                add("0000001");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("DeleteProduct"), eq(arguments))).thenReturn(
+                _transactionStub);
+
+        // When
+        Transaction transaction = _parser.parse("DeleteProduct|0000001");
+
+        // Then
+        assertThat(transaction, is(_transactionStub));
+    }
+
 }

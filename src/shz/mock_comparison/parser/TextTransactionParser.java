@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
-import shz.mock_comparison.transaction.TransactionFactoryImpl;
 
 public class TextTransactionParser implements TransactionParser {
 
     private TransactionFactory _transactionFactory;
 
-    public TextTransactionParser() {
-        _transactionFactory = new TransactionFactoryImpl();
+    public TextTransactionParser(TransactionFactory transactionFactory) {
+        _transactionFactory = transactionFactory;
     }
 
     @Override

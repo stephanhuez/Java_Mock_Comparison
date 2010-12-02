@@ -2,9 +2,10 @@ package shz.mock_comparison.parser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.fail;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,78 +16,85 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import shz.mock_comparison.Transaction;
+import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
-import shz.mock_comparison.domain.Product;
-import shz.mock_comparison.transaction.CreateProductTransaction;
-import shz.mock_comparison.transaction.DeleteProductTransaction;
-import shz.mock_comparison.transaction.InvalidTransactionIdentifier;
-import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 /**
  * 
  * @author Stephan Huez
  * 
  */
+@SuppressWarnings("serial")
 public class Test_XmlTransactionParser {
 
     private TransactionParser _parser;
+    private TransactionFactory _transactionFactoryStub;
+    private Transaction _transactionStub;
 
     @Before
     public void given() {
-        _parser = new XmlTransactionParser();
+        _transactionStub = mock(Transaction.class);
+        _transactionFactoryStub = mock(TransactionFactory.class);
+        _parser = new XmlTransactionParser(_transactionFactoryStub);
     }
 
     @Test
     public void should_Parse_Delete_Product_Transaction() throws Exception {
+        // Given
         Node node = newXmlNode("<DeleteProduct><id>000001</id></DeleteProduct>");
+        final ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                add("000001");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("DeleteProduct"), eq(arguments))).thenReturn(_transactionStub);
 
         // When
-        DeleteProductTransaction transaction = (DeleteProductTransaction) _parser.parse(node);
+        Transaction transaction = _parser.parse(node);
 
         // Then
-
-        Product expectedProduct = new Product("000001");
-        assertThat(transaction.getProduct(), equalTo(expectedProduct));
+        assertThat(transaction,is(_transactionStub));
     }
 
     @Test
     public void should_Parse_Create_Product_Transaction() throws Exception {
         // Given
         Node node = newXmlNode("<CreateProduct><id>000002</id><description>Product Two</description><price>999.99</price></CreateProduct>");
+        final ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                 add("000002");
+                 add("Product Two");
+                 add("999.99");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("CreateProduct"), eq(arguments))).thenReturn(_transactionStub);
 
         // When
-        CreateProductTransaction transaction = (CreateProductTransaction) _parser.parse(node);
+        Transaction transaction = _parser.parse(node);
 
         // Then
-        Product expectedProduct = new Product("000002", "Product Two", 999.99);
-        assertThat(transaction.getProduct(), equalTo(expectedProduct));
+        assertThat(transaction,is(_transactionStub));
     }
 
     @Test
     public void should_Parse_Update_Product_Transaction() throws Exception {
         // Given
         Node node = newXmlNode("<UpdateProduct><id>000009</id><description>Product number 26589</description><price>1548.24</price></UpdateProduct>");
+        final ArrayList<String> arguments = new ArrayList<String>() {
+            {
+                 add("000009");
+                 add("Product number 26589");
+                 add("1548.24");
+            }
+        };
+        when(_transactionFactoryStub.get(eq("UpdateProduct"), eq(arguments))).thenReturn(_transactionStub);
 
         // When
-        UpdateProductTransaction transaction = (UpdateProductTransaction) _parser.parse(node);
+        Transaction transaction = _parser.parse(node);
 
         // Then
-        Product expectedProduct = new Product("000009", "Product number 26589", 1548.24);
-        assertThat(transaction.getProduct(), equalTo(expectedProduct));
-    }
-
-    @Test
-    public void should_Fail_To_Parse_Unkown_Transaction() throws Exception {
-        // Given
-        Node node = newXmlNode("<Bogus><id>000009</id><description>Product number 26589</description><price>1548.24</price></Bogus>");
-
-        // When
-        try {
-            _parser.parse(node);
-            fail("Should have thrown an exception");
-        } catch (InvalidTransactionIdentifier iti) {
-            // Then should raise an exception
-        }
+        assertThat(transaction,is(_transactionStub));
     }
 
     private Element newXmlNode(String xml) throws Exception {

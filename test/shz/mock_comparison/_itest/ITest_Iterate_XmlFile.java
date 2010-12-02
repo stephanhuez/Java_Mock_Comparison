@@ -13,15 +13,16 @@ import org.junit.Test;
 import shz.mock_comparison.TransactionParser;
 import shz.mock_comparison.TransactionIterator;
 import shz.mock_comparison.domain.Product;
-import shz.mock_comparison.parser.TextTransactionParser;
-import shz.mock_comparison.reader.TextSourceReader;
+import shz.mock_comparison.parser.XmlTransactionParser;
+import shz.mock_comparison.reader.XmlSourceReader;
 import shz.mock_comparison.transaction.CreateProductTransaction;
 import shz.mock_comparison.transaction.DeleteProductTransaction;
+import shz.mock_comparison.transaction.TransactionFactoryImpl;
 import shz.mock_comparison.transaction.UpdateProductTransaction;
 
-public class ITest_Process_TextFile {
+public class ITest_Iterate_XmlFile {
 
-	private TextSourceReader _sourceReader;
+	private XmlSourceReader _sourceReader;
 	private InputStream _inputStream;
 	private TransactionParser _transactionParser;
 	private TransactionIterator _transactionIterator;
@@ -29,16 +30,15 @@ public class ITest_Process_TextFile {
 	@Before
 	public void given() {
 		_inputStream = ClassLoader
-				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.txt");
-		_sourceReader = new TextSourceReader(_inputStream);
-		_transactionParser = new TextTransactionParser();
+				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.xml");
+		_sourceReader = new XmlSourceReader(_inputStream);
+		_transactionParser = new XmlTransactionParser(new TransactionFactoryImpl());
 		_transactionIterator = new TransactionIterator(_sourceReader,
 				_transactionParser);
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_sourceReader.close();
 		_inputStream.close();
 	}
 
@@ -47,7 +47,7 @@ public class ITest_Process_TextFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000001","Bogus Product A",1200.99);
+		Product expectedProduct = new Product("000001","Product One",76.49);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -57,7 +57,7 @@ public class ITest_Process_TextFile {
 		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000001","Bogus Product AA",1100.99);
+		Product expectedProduct = new Product("000001","Product One",134.98);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -68,7 +68,7 @@ public class ITest_Process_TextFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000002","Bogus Product BB",1200.99);
+		Product expectedProduct = new Product("000002","Product Two",999.99);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
@@ -77,15 +77,29 @@ public class ITest_Process_TextFile {
 		_transactionIterator.nextTransaction();
 		_transactionIterator.nextTransaction();
 		_transactionIterator.nextTransaction();
-		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
+		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("0000002","Bogus Product B",2200.99);
+		Product expectedProduct = new Product("000003","Product Three",194.98);
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 
+    @Test
+    public void should_Return_Fifth_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
+        .nextTransaction();
+        assertThat(transaction, notNullValue());
+        Product expectedProduct = new Product("000003","Product Three Reviewed",234.98);
+        assertThat(transaction.getProduct(),equalTo(expectedProduct));
+    }
+
 	@Test
-	public void should_Return_Fifth_Transaction_In_File() {
+	public void should_Return_Sixth_Transaction_In_File() {
+		_transactionIterator.nextTransaction();
 		_transactionIterator.nextTransaction();
 		_transactionIterator.nextTransaction();
 		_transactionIterator.nextTransaction();
@@ -94,7 +108,7 @@ public class ITest_Process_TextFile {
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
 		
-		Product expectedProduct = new Product("0000001");
+		Product expectedProduct = new Product("000001");
 		assertThat(transaction.getProduct(),equalTo(expectedProduct));
 	}
 }

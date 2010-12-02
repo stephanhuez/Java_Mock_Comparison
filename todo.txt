@@ -19,13 +19,13 @@ Method:
 
 TO DO:
 ======
-=> Use packages to organise the code
 => Implement the CreateProduct Transaction
 => Implement the UpdateProduct Transaction
 => Implement the DeleteProduct Transaction 
 => Implement the ExportProducts Transaction
 DONE:
 =====
+=> Use packages to organise the code
 => Parse the XML Element from XmlSourceReader
 => Refactor to a more canonical form of constructor parameters for Transactions
 => Read transactions from an XML file

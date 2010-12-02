@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.transaction;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -7,21 +7,22 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-public class Test_CreateProductTransaction {
+import shz.mock_comparison.domain.Product;
+import shz.mock_comparison.transaction.DeleteProductTransaction;
+
+public class Test_UpdateProductTransaction {
 
     @Test
     public void should_Populate_Product_With_Arguments() {
         // Given
         ArrayList<String> arguments = new ArrayList<String>();
         arguments.add("1");
-        arguments.add("Description");
-        arguments.add("1000");
         
         // When
-        CreateProductTransaction transaction = new CreateProductTransaction(arguments);
+        DeleteProductTransaction transaction = new DeleteProductTransaction(arguments);
         
         // Then
-        Product expectedProduct = new Product("1", "Description", 1000);
+        Product expectedProduct = new Product("1");
         assertThat(transaction.getProduct(),equalTo(expectedProduct));
     }
 

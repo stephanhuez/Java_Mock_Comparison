@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.transaction;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -6,6 +6,9 @@ import static org.hamcrest.MatcherAssert.*;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import shz.mock_comparison.domain.Product;
+import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 public class Test_DeleteProductTransaction {
 

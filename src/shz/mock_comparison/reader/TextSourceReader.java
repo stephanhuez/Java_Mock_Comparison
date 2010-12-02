@@ -1,7 +1,9 @@
-package shz.mock_comparison;
+package shz.mock_comparison.reader;
 
 import java.io.InputStream;
 import java.util.Scanner;
+
+import shz.mock_comparison.TransactionSourceReader;
 
 public class TextSourceReader implements TransactionSourceReader {
 

@@ -1,11 +1,12 @@
 package shz.mock_comparison;
 
-public class TransactionReader {
+
+public class TransactionIterator {
 
 	private TransactionSourceReader _sourceReader;
 	private TransactionParser _parser;
 
-	public TransactionReader(TransactionSourceReader sourceReader,
+	public TransactionIterator(TransactionSourceReader sourceReader,
 			TransactionParser parser) {
 		_sourceReader = sourceReader;
 		_parser = parser;

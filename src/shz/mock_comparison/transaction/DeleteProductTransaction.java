@@ -1,6 +1,9 @@
-package shz.mock_comparison;
+package shz.mock_comparison.transaction;
 
 import java.util.ArrayList;
+
+import shz.mock_comparison.Transaction;
+import shz.mock_comparison.domain.Product;
 
 public class DeleteProductTransaction implements Transaction {
 

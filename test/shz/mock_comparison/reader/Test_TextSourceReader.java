@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.reader;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import shz.mock_comparison.reader.TextSourceReader;
+
 public class Test_TextSourceReader {
 
 	private TextSourceReader _sourceReader;
@@ -17,7 +19,7 @@ public class Test_TextSourceReader {
 
 	@Before
 	public void given() {
-		_inputStream = ClassLoader.getSystemResourceAsStream("shz/mock_comparison/Dummy.txt");
+		_inputStream = ClassLoader.getSystemResourceAsStream("shz/mock_comparison/reader/Dummy.txt");
 		_sourceReader = new TextSourceReader(_inputStream);
 
 	}

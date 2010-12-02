@@ -43,7 +43,7 @@ public class ReadXmlFile {
 
                             Element childElement = (Element) childNode;
                             System.out.println(childElement.getNodeName());
-                            System.out.println(childElement.getFirstChild().getNodeValue());                            
+                            System.out.println(childElement.getFirstChild().getNodeValue());
                         }
                     }
                 }
@@ -53,9 +53,4 @@ public class ReadXmlFile {
         }
     }
 
-    private static String getTagValue(String sTag, Element eElement) {
-        NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-        Node nValue = (Node) nlList.item(0);
-        return nValue.getNodeValue();
-    }
 }

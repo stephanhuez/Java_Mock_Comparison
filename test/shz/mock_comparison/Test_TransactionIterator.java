@@ -11,22 +11,23 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 
+
 /**
  * 
  * @author Stephan Huez
  * 
  */
-public class Test_TransactionReader {
+public class Test_TransactionIterator {
 	
 	private TransactionSourceReader _sourceReaderStub;
 	private TransactionParser _parserStub;
-	private TransactionReader _transactionReader;
+	private TransactionIterator _transactionReader;
 
 	@Before
 	public void given(){
 		_parserStub = mock(TransactionParser.class);
 		_sourceReaderStub = mock(TransactionSourceReader.class);
-		_transactionReader = new TransactionReader(
+		_transactionReader = new TransactionIterator(
 				_sourceReaderStub, _parserStub);
 		
 	}

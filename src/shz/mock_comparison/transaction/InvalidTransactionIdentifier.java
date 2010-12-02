@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.transaction;
 
 public class InvalidTransactionIdentifier extends RuntimeException {
 

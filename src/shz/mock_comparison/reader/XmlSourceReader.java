@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.reader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,6 +12,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import shz.mock_comparison.TransactionSourceReader;
 
 public class XmlSourceReader implements TransactionSourceReader {
 
@@ -32,7 +34,6 @@ public class XmlSourceReader implements TransactionSourceReader {
 		} catch (Exception e) {
 			throw new ImpossibleToOpenSource(e);
 		}
-
 	}
 
     private void extractRoot() throws ParserConfigurationException, SAXException, IOException {

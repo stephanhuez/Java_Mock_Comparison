@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.parser;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -14,6 +14,13 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import shz.mock_comparison.TransactionParser;
+import shz.mock_comparison.domain.Product;
+import shz.mock_comparison.transaction.CreateProductTransaction;
+import shz.mock_comparison.transaction.DeleteProductTransaction;
+import shz.mock_comparison.transaction.InvalidTransactionIdentifier;
+import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 /**
  * 

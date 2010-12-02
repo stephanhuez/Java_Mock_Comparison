@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.domain;
 
 public class Product {
 

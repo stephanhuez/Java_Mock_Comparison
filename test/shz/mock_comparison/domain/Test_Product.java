@@ -1,10 +1,12 @@
-package shz.mock_comparison;
+package shz.mock_comparison.domain;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 
 import org.junit.Test;
+
+import shz.mock_comparison.domain.Product;
 
 /**
  * @author Stephan Huez

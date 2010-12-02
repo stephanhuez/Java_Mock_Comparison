@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.mock_comparison.reader;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.w3c.dom.Element;
+
+import shz.mock_comparison.TransactionSourceReader;
+import shz.mock_comparison.reader.XmlSourceReader;
 
 /**
  * 
@@ -24,7 +27,7 @@ public class Test_XmlSourceReader {
 	@Before
 	public void given() {
 		_inputStream = ClassLoader
-				.getSystemResourceAsStream("shz/mock_comparison/Transactions.xml");
+				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.xml");
 		_sourceReader = new XmlSourceReader(_inputStream);
 
 	}

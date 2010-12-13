@@ -1,5 +1,0 @@
-CreateProduct|0000001|Bogus Product A|1200.99
-UpdateProduct|0000001|Bogus Product AA|1100.99
-CreateProduct|0000002|Bogus Product BB|1200.99
-UpdateProduct|0000002|Bogus Product B|2200.99
-DeleteProduct|0000001

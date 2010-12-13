@@ -1,1 +1,17 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.6
+
+repositories {
+    mavenRepo urls: 'http://repository.apache.org/snapshots/'
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.apache.commons:commons-lang3:3.0-SNAPSHOT'
+    testCompile 'junit:junit:4.+'
+    testCompile 'org.hamcrest:hamcrest-all:1.1'
+    testCompile 'org.mockito:mockito-all:1.8.5'
+}
+

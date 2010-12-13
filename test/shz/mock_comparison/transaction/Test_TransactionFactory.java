@@ -2,6 +2,7 @@ package shz.mock_comparison.transaction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
 import static shz.mock_comparison.utils.CustomAssertions.*;
 
@@ -18,7 +19,7 @@ import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 /**
  * @author Stephan Huez
- * 
+ *
  */
 public class Test_TransactionFactory {
 
@@ -74,6 +75,12 @@ public class Test_TransactionFactory {
         }
     }
 
+
+    @Test
+    public void shouldFail()
+    {
+        fail();
+    }
     private TransactionFactoryImpl newTransactionFactory() {
         Repository repositoryStub = mock(Repository.class);
         return new TransactionFactoryImpl(repositoryStub);

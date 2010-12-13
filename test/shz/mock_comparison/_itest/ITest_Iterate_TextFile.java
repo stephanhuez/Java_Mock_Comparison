@@ -24,6 +24,11 @@ import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 import static org.mockito.Mockito.*;
 
+/**
+ * 
+ * @author Stephan Huez
+ *
+ */
 public class ITest_Iterate_TextFile {
 
 	private TextSourceReader _sourceReader;

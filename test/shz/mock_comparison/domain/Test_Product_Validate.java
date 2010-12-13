@@ -23,90 +23,90 @@ public class Test_Product_Validate {
 
     @Test
     public void should_Reject_Empty_Id() {
-        given(new Product(""));
+        given_AProduct(new Product(""));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
 
     }
 
     @Test
     public void should_Reject_Null_Id() {
-        given(new Product(null));
+        given_AProduct(new Product(null));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Id_That_Does_Not_Have_25_Characters() {
-        given(new Product("0000000000000",VALID_DESCRIPTION,VALID_PRICE));
+        given_AProduct(new Product("0000000000000",VALID_DESCRIPTION,VALID_PRICE));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Accept_Valid_Id() {
-        given(new Product(VALID_ID, VALID_DESCRIPTION, VALID_PRICE));
+        given_AProduct(new Product(VALID_ID, VALID_DESCRIPTION, VALID_PRICE));
 
-        then_ShouldPassValidation();
+        then_TheProductShouldPassValidating();
     }
 
     @Test
     public void should_Reject_Id_That_Contains_Illegal_Characters() {
-        given(new Product("123456789#234567891234567",VALID_DESCRIPTION,VALID_PRICE));
+        given_AProduct(new Product("123456789#234567891234567",VALID_DESCRIPTION,VALID_PRICE));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Null_Description() {
-        given(new Product(VALID_ID, null, VALID_PRICE));
+        given_AProduct(new Product(VALID_ID, null, VALID_PRICE));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Empty_Description() {
-        given(new Product(VALID_ID, "", VALID_PRICE));
+        given_AProduct(new Product(VALID_ID, "", VALID_PRICE));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Too_Long_Description() {
-        given(new Product(
+        given_AProduct(new Product(
                 VALID_ID,
                 "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
                 VALID_PRICE));
 
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Price_Less_Than_Zero() {
-        given(new Product(
+        given_AProduct(new Product(
                 VALID_ID,
                 VALID_DESCRIPTION,
                 -1));
         
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);
     }
     
     @Test
     public void should_Reject_Price_Equal_To_Zero(){
-        given(new Product(
+        given_AProduct(new Product(
                 VALID_ID,
                 VALID_DESCRIPTION,
                 0.0));
         
-        then_ShouldFailValidationWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);        
+        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);        
     }
 
-    private void given(Product product) {
+    private void given_AProduct(Product product) {
         _product = product;
 
     }
 
-    private void then_ShouldFailValidationWithErrorMessage(String expectedIdValidationMessage) {
+    private void then_TheProductShouldFailValidatingWithErrorMessage(String expectedIdValidationMessage) {
         try {
             _product.validate();
             shouldHaveRaisedAnException();
@@ -116,7 +116,7 @@ public class Test_Product_Validate {
         }
     }
 
-    private void then_ShouldPassValidation() {
+    private void then_TheProductShouldPassValidating() {
         _product.validate();
     }
 

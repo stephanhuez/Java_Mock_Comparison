@@ -1,91 +1,56 @@
 package shz.mock_comparison.parser;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import shz.mock_comparison.Transaction;
-import shz.mock_comparison.TransactionFactory;
+import shz.mock_comparison.TransactionParser;
 
 /**
  * @author Stephan Huez
  * 
  */
-@SuppressWarnings("serial")
-public class Test_TextTransactionParser {
+public class Test_TextTransactionParser extends AbstractTransactionParserTests {
 
     private TextTransactionParser _parser;
-    private TransactionFactory _transactionFactoryStub;
-    private Transaction _transactionStub;
 
     @Before
     public void given() {
-        _transactionFactoryStub = mock(TransactionFactory.class);
-        _transactionStub = mock(Transaction.class);
+        super.given();
         _parser = new TextTransactionParser(_transactionFactoryStub);
     }
 
     @Test
     public void should_Parse_Create_Product_Transaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>() {
-            {
-                add("0000001");
-                add("Bogus Product");
-                add("1200.99");
-            }
-        };
-        when(_transactionFactoryStub.get(eq("CreateProduct"), eq(arguments))).thenReturn(
-                _transactionStub);
+        given_TheFollowingArguments("0000001", "Bogus Product", "1200.99");
+        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("CreateProduct");
 
-        // When
-        Transaction transaction = _parser.parse("CreateProduct|0000001|Bogus Product|1200.99");
+        when_parserCalledWith("CreateProduct|0000001|Bogus Product|1200.99");
 
-        // Then
-        assertThat(transaction, is(_transactionStub));
+        then_ActualTransactionShouldBeExpectedTransaction();
     }
 
     @Test
     public void should_Parse_Update_Product_Transaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>() {
-            {
-                add("0000001");
-                add("Bogus Product");
-                add("1200.99");
-            }
-        };
-        when(_transactionFactoryStub.get(eq("UpdateProduct"), eq(arguments))).thenReturn(
-                _transactionStub);
+        given_TheFollowingArguments("0000001", "Bogus Product", "1200.99");
+        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("UpdateProduct");
 
-        // When
-        Transaction transaction = _parser.parse("UpdateProduct|0000001|Bogus Product|1200.99");
+        when_parserCalledWith("UpdateProduct|0000001|Bogus Product|1200.99");
 
-        // Then
-        assertThat(transaction, is(_transactionStub));
+        then_ActualTransactionShouldBeExpectedTransaction();
     }
 
     @Test
     public void should_Parse_Delete_Product_Transaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>() {
-            {
-                add("0000001");
-            }
-        };
-        when(_transactionFactoryStub.get(eq("DeleteProduct"), eq(arguments))).thenReturn(
-                _transactionStub);
+        given_TheFollowingArguments("0000001");
+        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("DeleteProduct");
 
-        // When
-        Transaction transaction = _parser.parse("DeleteProduct|0000001");
+        when_parserCalledWith("DeleteProduct|0000001");
 
-        // Then
-        assertThat(transaction, is(_transactionStub));
+        then_ActualTransactionShouldBeExpectedTransaction();
+    }
+
+    protected TransactionParser getParser() {
+        return _parser;
     }
 
 }

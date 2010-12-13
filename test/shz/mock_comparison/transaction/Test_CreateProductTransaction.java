@@ -4,56 +4,58 @@ import static org.hamcrest.Matchers.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
-import shz.mock_comparison.Repository;
 import shz.mock_comparison.domain.Product;
 import shz.mock_comparison.transaction.CreateProductTransaction;
 
-@SuppressWarnings("serial")
-public class Test_CreateProductTransaction {
+public class Test_CreateProductTransaction extends AbstractTransactionTests {
+
+    private CreateProductTransaction _transaction;
 
     @Test
     public void should_Populate_Product_With_Arguments() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>() {
-            {
-                add("1");
-                add("Description");
-                add("1000");
-            }
-        };
+        given_TheFollowingArguments("1", "Description", "1000");
+        given_ARepositoryStub();
 
-        // When
-        Repository repositoryStub = mock(Repository.class);
-        CreateProductTransaction transaction = new CreateProductTransaction(arguments,repositoryStub);
+        given_ACreateProductTransactionWithARepositoryStub();
 
-        // Then
-        Product expectedProduct = new Product("1", "Description", 1000);
-        assertThat(transaction.getProduct(), equalTo(expectedProduct));
+        then_TheProductInTheTransactionShouldEqualTheExpectedProduct(new Product("1",
+                "Description", 1000));
     }
 
     @Test
     public void should_Store_Product_In_Repository() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>() {
-            {
-                add("1");
-                add("Description");
-                add("1000");
-            }
-        };
-        Repository repositoryMock = mock(Repository.class);
-        CreateProductTransaction transaction = new CreateProductTransaction(arguments, repositoryMock);
+        given_TheFollowingArguments("1", "Description", "1000");
+        given_ARepositoryMock();
+        given_ACreateProductTransactionWithARepositoryMock();
 
-        // When
-        transaction.execute();
+        when_TheTransactionExecutes();
 
-        // Then
-        Product expectedProduct = new Product("1", "Description", 1000);
-        verify(repositoryMock).createProduct(eq(expectedProduct));
+        then_TheTransactionShouldHaveCalledTheCreateProductOperationOfTheRepositoryMockWithTheExpectedProduct(new Product(
+                "1", "Description", 1000));
+    }
+
+    private void then_TheTransactionShouldHaveCalledTheCreateProductOperationOfTheRepositoryMockWithTheExpectedProduct(
+            Product expectedProduct) {
+        verify(_repositoryMock).createProduct(eq(expectedProduct));
+    }
+
+    private void when_TheTransactionExecutes() {
+        _transaction.execute();
+    }
+
+    private void then_TheProductInTheTransactionShouldEqualTheExpectedProduct(
+            Product expectedProduct) {
+        assertThat(_transaction.getProduct(), equalTo(expectedProduct));
+    }
+
+    private void given_ACreateProductTransactionWithARepositoryStub() {
+        _transaction = new CreateProductTransaction(_arguments, _repositoryStub);
+    }
+
+    private void given_ACreateProductTransactionWithARepositoryMock() {
+        _transaction = new CreateProductTransaction(_arguments, _repositoryMock);
     }
 
 }

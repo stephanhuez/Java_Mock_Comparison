@@ -5,6 +5,10 @@ This is a test application that I use to try out various Mock Frameworks.
 Change log:
 +++++++++++
 
+Version 0.02:
+=============
+Uses Gradle for build
+
 Version 0.01:
 =============
 First version with in memory repository and the following transactions:

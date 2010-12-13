@@ -32,4 +32,12 @@ public interface Repository {
      */
     void updateProduct(Product product);
 
+    /**
+     * Find a product with the provided identifier.
+     * 
+     * @param id
+     * @return
+     */
+    Product find(String id);
+
 }

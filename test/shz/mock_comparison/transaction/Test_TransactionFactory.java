@@ -2,8 +2,8 @@ package shz.mock_comparison.transaction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.fail;
 import static org.mockito.Mockito.*;
+import static shz.mock_comparison.utils.CustomAssertions.*;
 
 import java.util.ArrayList;
 
@@ -67,7 +67,7 @@ public class Test_TransactionFactory {
         // When
         try {
             newTransactionFactory().get("Bogus", new ArrayList<String>());
-            fail("Should have raised an exception");
+            shouldHaveRaisedAnException();
         } catch (InvalidTransactionKey e) {
             // Then
             // Should have thrown an exception

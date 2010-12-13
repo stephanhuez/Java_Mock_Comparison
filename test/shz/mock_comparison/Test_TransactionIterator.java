@@ -2,11 +2,11 @@ package shz.mock_comparison;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.fail;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static shz.mock_comparison.utils.CustomAssertions.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -86,7 +86,7 @@ public class Test_TransactionIterator {
 		// When
 		try {
 			_transactionReader.nextTransaction();
-			fail("Should have raised an exception");
+			shouldHaveRaisedAnException();
 		} catch (NoMoreTransactionInIterator e) {
 			// Then
 			// Should fail

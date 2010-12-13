@@ -19,6 +19,9 @@ Method:
 TO DO:
 ======
 => Add validations to the transactions
+=> Use Gradle for building the project
+=> Write an FileDrop component that will wait for Transactions
+=> Report errors during transaction processing in an output folder
 
 DONE:
 =====

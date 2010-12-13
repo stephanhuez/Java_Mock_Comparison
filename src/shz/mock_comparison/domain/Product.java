@@ -81,4 +81,12 @@ public class Product {
         return new ReflectionToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE).toString();
     }
 
+    public String getDescription() {
+        return _description;
+    }
+
+    public Double getPrice() {
+        return _price;
+    }
+
 }

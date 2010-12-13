@@ -10,25 +10,18 @@ import shz.mock_comparison.domain.Product;
  * This {@link Transaction} updates a product.
  * 
  * @author Stephan Huez
- *
+ * 
  */
-public class UpdateProductTransaction implements Transaction {
-
-    private Product _product;
-    private Repository _repository;
+public class UpdateProductTransaction extends ProductTransaction {
 
     public UpdateProductTransaction(ArrayList<String> arguments, Repository repository) {
-        _product = new Product(arguments.get(0), arguments.get(1), Double.valueOf(arguments.get(2)));
-        _repository = repository;
-    }
-
-    public Product getProduct() {
-        return _product;
+        super(repository, new Product(arguments.get(0), arguments.get(1), Double.valueOf(arguments
+                .get(2))));
     }
 
     @Override
     public void execute() {
-        _repository.updateProduct(_product);
+        getRepository().updateProduct(getProduct());
     }
 
 }

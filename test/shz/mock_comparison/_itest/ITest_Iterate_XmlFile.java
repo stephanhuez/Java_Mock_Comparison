@@ -15,7 +15,6 @@ import shz.mock_comparison.Repository;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
 import shz.mock_comparison.TransactionIterator;
-import shz.mock_comparison.domain.Product;
 import shz.mock_comparison.parser.XmlTransactionParser;
 import shz.mock_comparison.reader.XmlSourceReader;
 import shz.mock_comparison.transaction.CreateProductTransaction;
@@ -51,8 +50,9 @@ public class ITest_Iterate_XmlFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("000001","Product One",76.49);
-		assertThat(transaction.getProduct(),equalTo(expectedProduct));
+        assertThat(transaction.getProductId(),equalTo("000001"));
+        assertThat(transaction.getProductDescription(),equalTo("Product One"));
+        assertThat(transaction.getProductPrice(),equalTo(76.49));
 	}
 
 	@Test
@@ -61,8 +61,9 @@ public class ITest_Iterate_XmlFile {
 		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
 				.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("000001","Product One",134.98);
-		assertThat(transaction.getProduct(),equalTo(expectedProduct));
+		assertThat(transaction.getProductId(),equalTo("000001"));
+		assertThat(transaction.getProductDescription(),equalTo("Product One"));
+		assertThat(transaction.getProductPrice(),equalTo(134.98));
 	}
 
 	@Test
@@ -72,8 +73,9 @@ public class ITest_Iterate_XmlFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("000002","Product Two",999.99);
-		assertThat(transaction.getProduct(),equalTo(expectedProduct));
+        assertThat(transaction.getProductId(),equalTo("000002"));
+        assertThat(transaction.getProductDescription(),equalTo("Product Two"));
+        assertThat(transaction.getProductPrice(),equalTo(999.99));
 	}
 
 	@Test
@@ -84,8 +86,9 @@ public class ITest_Iterate_XmlFile {
 		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
-		Product expectedProduct = new Product("000003","Product Three",194.98);
-		assertThat(transaction.getProduct(),equalTo(expectedProduct));
+        assertThat(transaction.getProductId(),equalTo("000003"));
+        assertThat(transaction.getProductDescription(),equalTo("Product Three"));
+        assertThat(transaction.getProductPrice(),equalTo(194.98));
 	}
 
     @Test
@@ -97,8 +100,9 @@ public class ITest_Iterate_XmlFile {
         UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
         .nextTransaction();
         assertThat(transaction, notNullValue());
-        Product expectedProduct = new Product("000003","Product Three Reviewed",234.98);
-        assertThat(transaction.getProduct(),equalTo(expectedProduct));
+        assertThat(transaction.getProductId(),equalTo("000003"));
+        assertThat(transaction.getProductDescription(),equalTo("Product Three Reviewed"));
+        assertThat(transaction.getProductPrice(),equalTo(234.98));
     }
 
 	@Test
@@ -112,7 +116,6 @@ public class ITest_Iterate_XmlFile {
 		.nextTransaction();
 		assertThat(transaction, notNullValue());
 		
-		Product expectedProduct = new Product("000001");
-		assertThat(transaction.getProduct(),equalTo(expectedProduct));
+        assertThat(transaction.getProductId(),equalTo("000001"));
 	}
 }

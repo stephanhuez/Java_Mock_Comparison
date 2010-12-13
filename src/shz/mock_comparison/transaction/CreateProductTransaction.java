@@ -10,24 +10,17 @@ import shz.mock_comparison.domain.Product;
  * This {@link Transaction} creates a product.
  * 
  * @author Stephan Huez
- *
+ * 
  */
-public class CreateProductTransaction implements Transaction {
-    private Product _product;
-    private Repository _repository;
-
+public class CreateProductTransaction extends ProductTransaction {
     public CreateProductTransaction(ArrayList<String> arguments, Repository repository) {
-        _product = new Product(arguments.get(0), arguments.get(1), Double.valueOf(arguments.get(2)));
-        _repository = repository;
-    }
-
-    public Product getProduct() {
-        return _product;
+        super(repository, new Product(arguments.get(0), arguments.get(1), Double.valueOf(arguments
+                .get(2))));
     }
 
     @Override
     public void execute() {
-        _repository.createProduct(_product);
+        getRepository().createProduct(getProduct());
     }
 
 }

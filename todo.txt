@@ -18,13 +18,15 @@ Method:
 
 TO DO:
 ======
-=> Add validations to the transactions
-=> Use Gradle for building the project
+=> Refactor Test_TransactionFactory to use Given/When/Else syntax
+=> Clean up the parsing of arguments to instantiate products
 => Write an FileDrop component that will wait for Transactions
 => Report errors during transaction processing in an output folder
 
 DONE:
 =====
+=> Add validations to the transactions
+=> Use Gradle for building the project
 => Use packages to organise the code
 => Parse the XML Element from XmlSourceReader
 => Refactor to a more canonical form of constructor parameters for Transactions

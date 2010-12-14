@@ -2,7 +2,7 @@ package shz.mock_comparison.domain;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
-import static shz.mock_comparison.utils.CustomAssertions.shouldHaveRaisedAnException;
+import static shz.mock_comparison.utils.CustomAssertions.*;
 
 import org.junit.Test;
 
@@ -26,7 +26,6 @@ public class Test_Product_Validate {
         given_AProduct(new Product(""));
 
         then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
-
     }
 
     @Test
@@ -109,7 +108,7 @@ public class Test_Product_Validate {
     private void then_TheProductShouldFailValidatingWithErrorMessage(String expectedIdValidationMessage) {
         try {
             _product.validate();
-            shouldHaveRaisedAnException();
+            then_AnExceptionShoulBeRaised();
         } catch (ValidationFailure vf) {
             // Then
             assertThat(vf.getMessage(), equalTo(expectedIdValidationMessage));

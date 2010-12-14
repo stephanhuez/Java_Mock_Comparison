@@ -8,8 +8,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-
 import shz.mock_comparison.Transaction;
 import shz.mock_comparison.TransactionFactory;
 import shz.mock_comparison.TransactionParser;
@@ -17,23 +15,27 @@ import shz.mock_comparison.utils.TypeUtils;
 
 /**
  * @author Stephan Huez
- *
+ * 
  */
 public abstract class AbstractTransactionParserTests {
     protected TransactionFactory _transactionFactoryStub;
-    protected Transaction _expectedTransactionStub;
+    protected Transaction _expectedTransactionStub =  mock(Transaction.class);
     protected ArrayList<String> _arguments;
     protected Transaction _actualTransaction;
+    private String _typeKey;
 
-    @Before
-    public void given() {
-        _transactionFactoryStub = mock(TransactionFactory.class);
-        _expectedTransactionStub = mock(Transaction.class);
+
+    protected void given_TheFactoryReturnsATransaction(String transactionType) {
+        when(_transactionFactoryStub.get(eq(transactionType), eq(_arguments))).thenReturn(
+                _expectedTransactionStub);
     }
 
-    protected void given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments(
-            String transactionType) {
-        when(_transactionFactoryStub.get(eq(transactionType), eq(_arguments))).thenReturn(
+    protected void given_TheFollowingKey(String typeKey) {
+        _typeKey = typeKey;
+    }
+
+    protected void given_TheFactoryReturnsATransaction() {
+        when(_transactionFactoryStub.get(eq(_typeKey), eq(_arguments))).thenReturn(
                 _expectedTransactionStub);
     }
 
@@ -45,10 +47,15 @@ public abstract class AbstractTransactionParserTests {
         _arguments = TypeUtils.buildArguments(args);
     }
 
-    protected void when_parserCalledWith(Object value) {
+    protected void when_CallingTheParserWith(Object value) {
         _actualTransaction = getParser().parse(value);
     }
 
+    protected void given_ATransactionFactory() {
+        _transactionFactoryStub = mock(TransactionFactory.class);
+    }
+
+    
     protected abstract TransactionParser getParser();
 
 }

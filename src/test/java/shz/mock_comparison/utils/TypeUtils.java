@@ -6,15 +6,15 @@ import shz.mock_comparison.Transaction;
 
 /**
  * Utility class for testing.
- *
+ * 
  * @author stephan
- *
+ * 
  */
 public class TypeUtils {
 
     /**
      * Build arguments for {@link Transaction}
-     *
+     * 
      * @param args
      * @return
      */
@@ -27,7 +27,6 @@ public class TypeUtils {
                 }
             }
         };
-
     }
 
 }

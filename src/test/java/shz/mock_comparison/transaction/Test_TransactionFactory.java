@@ -1,8 +1,8 @@
 package shz.mock_comparison.transaction;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Mockito.*;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.mockito.Mockito.mock;
 import static shz.mock_comparison.utils.CustomAssertions.*;
 
 import java.util.ArrayList;
@@ -10,74 +10,87 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import shz.mock_comparison.Repository;
-import shz.mock_comparison.transaction.CreateProductTransaction;
-import shz.mock_comparison.transaction.DeleteProductTransaction;
-import shz.mock_comparison.transaction.InvalidTransactionKey;
-import shz.mock_comparison.transaction.TransactionFactoryImpl;
-import shz.mock_comparison.transaction.UpdateProductTransaction;
+import shz.mock_comparison.Transaction;
+import shz.mock_comparison.TransactionFactory;
+import shz.mock_comparison.utils.TypeUtils;
 
 /**
  * @author Stephan Huez
- *
+ * 
  */
 public class Test_TransactionFactory {
 
+    private ArrayList<String> _arguments;
+    private TransactionFactory _transactionFactory;
+    private Transaction _transaction;
+    private String _transactionType;
+
     @Test
     public void should_Instantiate_CreateProductTransaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>();
-        arguments.add("1");
-        arguments.add("Description");
-        arguments.add("1000");
-        CreateProductTransaction transaction = (CreateProductTransaction) newTransactionFactory().get("CreateProduct",
-                arguments);
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1", "Description", "1000");
+        given_TheFollowingKey("CreateProduct");
 
-        // Then
-        assertThat(transaction, notNullValue());
+        when_AskingForATransaction();
+
+        then_TheTransactionMustBeOfType(CreateProductTransaction.class);
     }
 
     @Test
     public void should_Instantiate_UpdateProductTransaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>();
-        arguments.add("1");
-        arguments.add("Description");
-        arguments.add("1000");
-        UpdateProductTransaction transaction = (UpdateProductTransaction) newTransactionFactory().get("UpdateProduct",
-                arguments);
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1", "Description", "1000");
+        given_TheFollowingKey("UpdateProduct");
 
-        // Then
-        assertThat(transaction, notNullValue());
+        when_AskingForATransaction();
+
+        then_TheTransactionMustBeOfType(UpdateProductTransaction.class);
     }
 
     @Test
     public void should_Instantiate_DeleteProductTransaction() {
-        // Given
-        ArrayList<String> arguments = new ArrayList<String>();
-        arguments.add("1");
-        DeleteProductTransaction transaction = (DeleteProductTransaction) newTransactionFactory().get("DeleteProduct",
-                arguments);
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1");
+        given_TheFollowingKey("DeleteProduct");
 
-        // Then
-        assertThat(transaction, notNullValue());
+        when_AskingForATransaction();
+
+        then_TheTransactionMustBeOfType(DeleteProductTransaction.class);
+    }
+
+    private void given_TheFollowingKey(String transactionType) {
+        _transactionType = transactionType;
+
     }
 
     @Test
     public void should_Fail_On_Unkown_Key() {
-        // When
+        given_ATransactionFactory();
+        given_TheFollowingArguments();
+        given_TheFollowingKey("Bogus");
+        
         try {
-            newTransactionFactory().get("Bogus", new ArrayList<String>());
-            shouldHaveRaisedAnException();
+            when_AskingForATransaction();
+            then_AnExceptionShoulBeRaised();
         } catch (InvalidTransactionKey e) {
-            // Then
-            // Should have thrown an exception
         }
     }
 
+    private void then_TheTransactionMustBeOfType(Class<?> clazz) {
+        assertThat(_transaction, instanceOf(clazz));
 
-    private TransactionFactoryImpl newTransactionFactory() {
-        Repository repositoryStub = mock(Repository.class);
-        return new TransactionFactoryImpl(repositoryStub);
     }
 
+    private void when_AskingForATransaction() {
+        _transaction = _transactionFactory.get(_transactionType, _arguments);
+    }
+
+    private void given_ATransactionFactory() {
+        Repository repositoryStub = mock(Repository.class);
+        _transactionFactory = new TransactionFactoryImpl(repositoryStub);
+    }
+
+    protected void given_TheFollowingArguments(final String... args) {
+        _arguments = TypeUtils.buildArguments(args);
+    }
 }

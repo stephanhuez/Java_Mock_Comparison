@@ -1,6 +1,5 @@
 package shz.mock_comparison.parser;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import shz.mock_comparison.TransactionParser;
@@ -13,44 +12,52 @@ public class Test_TextTransactionParser extends AbstractTransactionParserTests {
 
     private TextTransactionParser _parser;
 
-    @Before
-    public void given() {
-        super.given();
-        _parser = new TextTransactionParser(_transactionFactoryStub);
-    }
-
     @Test
     public void should_Parse_Create_Product_Transaction() {
+        given_ATransactionFactory();
+        given_ATransactionParser();
         given_TheFollowingArguments("0000001", "Bogus Product", "1200.99");
-        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("CreateProduct");
+        given_TheFollowingKey("CreateProduct");
+        given_TheFactoryReturnsATransaction();
 
-        when_parserCalledWith("CreateProduct|0000001|Bogus Product|1200.99");
+        when_CallingTheParserWith("CreateProduct|0000001|Bogus Product|1200.99");
 
         then_ActualTransactionShouldBeExpectedTransaction();
     }
 
     @Test
     public void should_Parse_Update_Product_Transaction() {
+        given_ATransactionFactory();
+        given_ATransactionParser();
         given_TheFollowingArguments("0000001", "Bogus Product", "1200.99");
-        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("UpdateProduct");
+        given_TheFollowingKey("UpdateProduct");
+        given_TheFactoryReturnsATransaction();
 
-        when_parserCalledWith("UpdateProduct|0000001|Bogus Product|1200.99");
+        when_CallingTheParserWith("UpdateProduct|0000001|Bogus Product|1200.99");
 
         then_ActualTransactionShouldBeExpectedTransaction();
     }
 
     @Test
     public void should_Parse_Delete_Product_Transaction() {
+        given_ATransactionFactory();
+        given_ATransactionParser();
         given_TheFollowingArguments("0000001");
-        given_FactoryReturnsExpectedTransactionMatchingTypeAndArguments("DeleteProduct");
+        given_TheFactoryReturnsATransaction("DeleteProduct");
+        given_TheFollowingKey("DeleteProduct");
+        given_TheFactoryReturnsATransaction();
 
-        when_parserCalledWith("DeleteProduct|0000001");
+        when_CallingTheParserWith("DeleteProduct|0000001");
 
         then_ActualTransactionShouldBeExpectedTransaction();
     }
 
     protected TransactionParser getParser() {
         return _parser;
+    }
+
+    private void given_ATransactionParser() {
+        _parser = new TextTransactionParser(_transactionFactoryStub);
     }
 
 }

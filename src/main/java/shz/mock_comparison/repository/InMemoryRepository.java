@@ -3,6 +3,7 @@ package shz.mock_comparison.repository;
 import java.util.concurrent.ConcurrentHashMap;
 
 import shz.mock_comparison.Repository;
+import shz.mock_comparison.domain.Customer;
 import shz.mock_comparison.domain.Product;
 
 /**
@@ -15,9 +16,11 @@ import shz.mock_comparison.domain.Product;
 public class InMemoryRepository implements Repository {
 
     private ConcurrentHashMap<String, Product> _products;
+    private ConcurrentHashMap<String, Customer> _customers;
 
     public InMemoryRepository() {
         _products = new ConcurrentHashMap<String, Product>();
+        _customers = new ConcurrentHashMap<String, Customer>();
     }
 
     @Override
@@ -32,12 +35,32 @@ public class InMemoryRepository implements Repository {
 
     @Override
     public void updateProduct(Product product) {
-        _products.put(product.getId(), product);
+        createProduct(product);
     }
 
     @Override
-    public Product find(String id) {
+    public Product findProduct(String id) {
         return _products.get(id);
+    }
+
+    @Override
+    public void createCustomer(Customer customer) {
+        _customers.put(customer.getId(), customer);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+        createCustomer(customer);
+    }
+
+    @Override
+    public void deleteCustomer(Customer customer) {
+        _customers.remove(customer.getId());
+    }
+
+    @Override
+    public Customer findCustomer(String id) {
+        return _customers.get(id);
     }
 
 }

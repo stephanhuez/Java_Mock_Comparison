@@ -52,6 +52,9 @@ public class Test_XmlSourceReader {
 		_sourceReader.nextElement();
 		_sourceReader.nextElement();
 		_sourceReader.nextElement();
+		_sourceReader.nextElement();
+		_sourceReader.nextElement();
+		_sourceReader.nextElement();
 
 		// Then
 		assertThat(_sourceReader.hasNextElement(), is(false));

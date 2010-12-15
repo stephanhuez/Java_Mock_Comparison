@@ -6,23 +6,38 @@ import static org.mockito.Mockito.*;
 import org.junit.Test;
 
 import shz.mock_comparison.domain.Product;
+import shz.mock_comparison.domain.ValidationFailure;
+import shz.mock_comparison.utils.CustomAssertions;
 
-public class Test_UpdateProductTransaction extends AbstractProductTransactionTests {
+public class Test_UpdateProductTransaction extends AbstractTransactionTests {
 
     @Test
     public void should_Update_Product_In_Repository() {
-        given_TheFollowingArguments("1", "Description", "1000");
-        given_ARepositoryTestDouble();
+        given_TheFollowingArguments(VALID_PRODUCT_ID, "Description", "1000");
+        given_ARepository();
 
         given_AnUpdateProductTransaction();
 
         when_TheTransactionExecutes();
 
-        then_TheTransactionShouldHaveUpdatedTheExpectedProductInTheRepository(new Product("1",
+        then_TheTransactionShouldHaveUpdatedTheExpectedProductInTheRepository(new Product(VALID_PRODUCT_ID,
                 "Description", 1000));
 
     }
 
+    @Test
+    public void should_Validate_The_Product(){
+        given_TheFollowingArguments("1", "Description", "1000");
+        given_ARepository();
+        given_AnUpdateProductTransaction();
+
+        try {
+            when_TheTransactionExecutes();
+            CustomAssertions.then_AnExceptionShoulBeRaised();
+        } catch (ValidationFailure e) {            
+        }
+    }
+    
     private void then_TheTransactionShouldHaveUpdatedTheExpectedProductInTheRepository(
             Product expectedProduct) {
         verify(_repositoryTestDouble).updateProduct(eq(expectedProduct));

@@ -21,6 +21,7 @@ public class UpdateProductTransaction extends ProductTransaction {
 
     @Override
     public void execute() {
+        getProduct().validate();
         getRepository().updateProduct(getProduct());
     }
 

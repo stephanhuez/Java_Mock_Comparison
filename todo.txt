@@ -5,9 +5,19 @@ Rough idea:
 => The transactions are executed either in memory or persisted into an XML file or in a database.
 
 => Transactions:
-	=> Create product
-	=> Update product
-	=> Delete product
+	=> Product:
+	   => Create
+	   => Update
+	   => Delete
+	=> Customer:
+	   => Create
+	   => Update
+	   => Delete
+    => Order:
+        => Create
+        => Update
+        => Delete
+    
 
 Method:
 =======
@@ -18,13 +28,19 @@ Method:
 
 TO DO:
 ======
-=> Refactor Test_TransactionFactory to use Given/When/Else syntax
-=> Clean up the parsing of arguments to instantiate products
+=> Use Mockito annotations
+=> Use Mockito BDD API
+=> Clean up the parsing of arguments to instantiate products and customers
 => Write an FileDrop component that will wait for Transactions
 => Report errors during transaction processing in an output folder
 
 DONE:
 =====
+=> Make sure that customer transactions call the validation on customer
+=> Create/Update/Delete customer transactions
+=> Add customer related methods to Repository
+=> Add validation to Customer
+=> Refactor Test_TransactionFactory to use Given/When/Else syntax
 => Add validations to the transactions
 => Use Gradle for building the project
 => Use packages to organise the code

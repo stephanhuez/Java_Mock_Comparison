@@ -58,6 +58,38 @@ public class Test_TransactionFactory {
         then_TheTransactionMustBeOfType(DeleteProductTransaction.class);
     }
 
+    @Test
+    public void should_Instantiate_CreateCustomerTransaction() {
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1", "", "", "");
+        given_TheFollowingKey("CreateCustomer");
+
+        when_AskingForATransaction();
+
+        then_TheTransactionMustBeOfType(CreateCustomerTransaction.class);
+    }
+
+    @Test
+    public void should_Instantiate_UpdateCustomerTransaction() {
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1", "", "", "");
+        given_TheFollowingKey("UpdateCustomer");
+
+        when_AskingForATransaction();
+
+        then_TheTransactionMustBeOfType(UpdateCustomerTransaction.class);
+    }
+    @Test
+    public void should_Instantiate_DeleteCustomerTransaction() {
+        given_ATransactionFactory();
+        given_TheFollowingArguments("1");
+        given_TheFollowingKey("DeleteCustomer");
+        
+        when_AskingForATransaction();
+        
+        then_TheTransactionMustBeOfType(DeleteCustomerTransaction.class);
+    }
+
     private void given_TheFollowingKey(String transactionType) {
         _transactionType = transactionType;
 
@@ -68,7 +100,7 @@ public class Test_TransactionFactory {
         given_ATransactionFactory();
         given_TheFollowingArguments();
         given_TheFollowingKey("Bogus");
-        
+
         try {
             when_AskingForATransaction();
             then_AnExceptionShoulBeRaised();

@@ -32,6 +32,12 @@ public class TransactionFactoryImpl implements TransactionFactory {
                 getConstructor(DeleteProductTransaction.class));
         _constructors.put("UpdateProduct",
                 getConstructor(UpdateProductTransaction.class));
+        _constructors.put("CreateCustomer",
+                getConstructor(CreateCustomerTransaction.class));
+        _constructors.put("UpdateCustomer",
+                getConstructor(UpdateCustomerTransaction.class));
+        _constructors.put("DeleteCustomer",
+                getConstructor(DeleteCustomerTransaction.class));
     }
 
     private Constructor<?> getConstructor(Class<?> clazz) {

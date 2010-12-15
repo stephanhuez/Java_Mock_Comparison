@@ -1,5 +1,6 @@
 package shz.mock_comparison;
 
+import shz.mock_comparison.domain.Customer;
 import shz.mock_comparison.domain.Product;
 
 /**
@@ -38,6 +39,35 @@ public interface Repository {
      * @param id
      * @return
      */
-    Product find(String id);
+    Product findProduct(String id);
+
+    /**
+     * Store a new customer in the repository.
+     * 
+     * @param customer
+     */
+    void createCustomer(Customer customer);
+
+    /**
+     * Update an existing customer in the repository.
+     * 
+     * @param customer
+     */
+    void updateCustomer(Customer customer);
+
+    /**
+     * Delete an existing customer from the repository.
+     * 
+     * @param customer
+     */
+    void deleteCustomer(Customer eq);
+
+    /**
+     * Find a customer with the provided identifier.
+     * 
+     * @param id
+     * @return
+     */
+    Customer findCustomer(String id);
 
 }

@@ -13,6 +13,7 @@ import org.junit.Test;
  * 
  */
 public class Test_Product_Validate {
+    private static final String OVERSIZED_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String VALID_DESCRIPTION = "Valid description";
     private static final String VALID_ID = "1234567891234567891234567";
     private static final String EXPECTED_ID_VALIDATION_MESSAGE = "Id must contain exactly 25 allowed characters 0..9 a..z A..Z";
@@ -25,21 +26,21 @@ public class Test_Product_Validate {
     public void should_Reject_Empty_Id() {
         given_AProduct(new Product(""));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Null_Id() {
         given_AProduct(new Product(null));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Id_That_Does_Not_Have_25_Characters() {
         given_AProduct(new Product("0000000000000",VALID_DESCRIPTION,VALID_PRICE));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
@@ -53,31 +54,31 @@ public class Test_Product_Validate {
     public void should_Reject_Id_That_Contains_Illegal_Characters() {
         given_AProduct(new Product("123456789#234567891234567",VALID_DESCRIPTION,VALID_PRICE));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_ID_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Null_Description() {
         given_AProduct(new Product(VALID_ID, null, VALID_PRICE));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Empty_Description() {
         given_AProduct(new Product(VALID_ID, "", VALID_PRICE));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
     public void should_Reject_Too_Long_Description() {
         given_AProduct(new Product(
                 VALID_ID,
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                OVERSIZED_STRING,
                 VALID_PRICE));
 
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_DESCRIPTION_VALIDATION_MESSAGE);
     }
 
     @Test
@@ -87,7 +88,7 @@ public class Test_Product_Validate {
                 VALID_DESCRIPTION,
                 -1));
         
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);
     }
     
     @Test
@@ -97,7 +98,7 @@ public class Test_Product_Validate {
                 VALID_DESCRIPTION,
                 0.0));
         
-        then_TheProductShouldFailValidatingWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);        
+        then_ValidationShouldFailWithErrorMessage(EXPECTED_PRICE_VALIDATION_MESSAGE);        
     }
 
     private void given_AProduct(Product product) {
@@ -105,7 +106,7 @@ public class Test_Product_Validate {
 
     }
 
-    private void then_TheProductShouldFailValidatingWithErrorMessage(String expectedIdValidationMessage) {
+    private void then_ValidationShouldFailWithErrorMessage(String expectedIdValidationMessage) {
         try {
             _product.validate();
             then_AnExceptionShoulBeRaised();

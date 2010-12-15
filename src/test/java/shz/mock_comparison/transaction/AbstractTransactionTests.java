@@ -12,9 +12,10 @@ import shz.mock_comparison.utils.TypeUtils;
  * @author Stephan Huez
  *
  */
-public abstract class AbstractProductTransactionTests {
+public abstract class AbstractTransactionTests {
 
-	protected ArrayList<String> _arguments;
+	protected static final String VALID_PRODUCT_ID = "0000000000000000000000001";
+    protected ArrayList<String> _arguments;
 	protected Repository _repositoryTestDouble;
 	protected Transaction _transaction;
 
@@ -22,7 +23,7 @@ public abstract class AbstractProductTransactionTests {
 		_arguments = TypeUtils.buildArguments(args);
 	}
 
-	protected void given_ARepositoryTestDouble() {
+	protected void given_ARepository() {
 		_repositoryTestDouble = mock(Repository.class);
 	}
 

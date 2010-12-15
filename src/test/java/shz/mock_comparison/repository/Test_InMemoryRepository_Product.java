@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.*;
  * @author Stephan Huez
  * 
  */
-public class Test_InMemoryRepository {
+public class Test_InMemoryRepository_Product {
 
     private Repository _repository;
     private Product _foundProduct;
@@ -72,7 +72,7 @@ public class Test_InMemoryRepository {
     }
 
     private void when_LookingForProductWithId(String id) {
-        _foundProduct = _repository.find(id);
+        _foundProduct = _repository.findProduct(id);
     }
 
     private void then_FoundProductShouldEqualToExpectedProduct(Product product) {

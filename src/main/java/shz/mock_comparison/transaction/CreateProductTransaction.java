@@ -20,6 +20,7 @@ public class CreateProductTransaction extends ProductTransaction {
 
     @Override
     public void execute() {
+        getProduct().validate();
         getRepository().createProduct(getProduct());
     }
 

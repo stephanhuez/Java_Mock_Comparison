@@ -17,79 +17,81 @@ import shz.mock_comparison.TransactionParser;
 import shz.mock_comparison.TransactionIterator;
 import shz.mock_comparison.parser.XmlTransactionParser;
 import shz.mock_comparison.reader.XmlSourceReader;
+import shz.mock_comparison.transaction.CreateCustomerTransaction;
 import shz.mock_comparison.transaction.CreateProductTransaction;
+import shz.mock_comparison.transaction.DeleteCustomerTransaction;
 import shz.mock_comparison.transaction.DeleteProductTransaction;
 import shz.mock_comparison.transaction.TransactionFactoryImpl;
+import shz.mock_comparison.transaction.UpdateCustomerTransaction;
 import shz.mock_comparison.transaction.UpdateProductTransaction;
 
 public class ITest_Iterate_XmlFile {
 
-	private XmlSourceReader _sourceReader;
-	private InputStream _inputStream;
-	private TransactionParser _transactionParser;
-	private TransactionIterator _transactionIterator;
+    private XmlSourceReader _sourceReader;
+    private InputStream _inputStream;
+    private TransactionParser _transactionParser;
+    private TransactionIterator _transactionIterator;
 
-	@Before
-	public void given() {
-		_inputStream = ClassLoader
-				.getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.xml");
-		_sourceReader = new XmlSourceReader(_inputStream);
+    @Before
+    public void given() {
+        _inputStream = ClassLoader
+                .getSystemResourceAsStream("shz/mock_comparison/reader/Transactions.xml");
+        _sourceReader = new XmlSourceReader(_inputStream);
         TransactionFactory transactionFactory = new TransactionFactoryImpl(mock(Repository.class));
-		_transactionParser = new XmlTransactionParser(transactionFactory);
-		_transactionIterator = new TransactionIterator(_sourceReader,
-				_transactionParser);
-	}
+        _transactionParser = new XmlTransactionParser(transactionFactory);
+        _transactionIterator = new TransactionIterator(_sourceReader, _transactionParser);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		_inputStream.close();
-	}
+    @After
+    public void tearDown() throws Exception {
+        _inputStream.close();
+    }
 
-	@Test
-	public void should_Return_First_Transaction_In_File() {
-		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
-				.nextTransaction();
-		assertThat(transaction, notNullValue());
-        assertThat(transaction.getProductId(),equalTo("000001"));
-        assertThat(transaction.getProductDescription(),equalTo("Product One"));
-        assertThat(transaction.getProductPrice(),equalTo(76.49));
-	}
+    @Test
+    public void should_Return_First_Transaction_In_File() {
+        CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000001"));
+        assertThat(transaction.getProductDescription(), equalTo("Product One"));
+        assertThat(transaction.getProductPrice(), equalTo(76.49));
+    }
 
-	@Test
-	public void should_Return_Second_Transaction_In_File() {
-		_transactionIterator.nextTransaction();
-		UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
-				.nextTransaction();
-		assertThat(transaction, notNullValue());
-		assertThat(transaction.getProductId(),equalTo("000001"));
-		assertThat(transaction.getProductDescription(),equalTo("Product One"));
-		assertThat(transaction.getProductPrice(),equalTo(134.98));
-	}
+    @Test
+    public void should_Return_Second_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000001"));
+        assertThat(transaction.getProductDescription(), equalTo("Product One"));
+        assertThat(transaction.getProductPrice(), equalTo(134.98));
+    }
 
-	@Test
-	public void should_Return_Third_Transaction_In_File() {
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
-		.nextTransaction();
-		assertThat(transaction, notNullValue());
-        assertThat(transaction.getProductId(),equalTo("000002"));
-        assertThat(transaction.getProductDescription(),equalTo("Product Two"));
-        assertThat(transaction.getProductPrice(),equalTo(999.99));
-	}
+    @Test
+    public void should_Return_Third_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000002"));
+        assertThat(transaction.getProductDescription(), equalTo("Product Two"));
+        assertThat(transaction.getProductPrice(), equalTo(999.99));
+    }
 
-	@Test
-	public void should_Return_Fourth_Transaction_In_File() {
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
-		.nextTransaction();
-		assertThat(transaction, notNullValue());
-        assertThat(transaction.getProductId(),equalTo("000003"));
-        assertThat(transaction.getProductDescription(),equalTo("Product Three"));
-        assertThat(transaction.getProductPrice(),equalTo(194.98));
-	}
+    @Test
+    public void should_Return_Fourth_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        CreateProductTransaction transaction = (CreateProductTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000003"));
+        assertThat(transaction.getProductDescription(), equalTo("Product Three"));
+        assertThat(transaction.getProductPrice(), equalTo(194.98));
+    }
 
     @Test
     public void should_Return_Fifth_Transaction_In_File() {
@@ -98,24 +100,78 @@ public class ITest_Iterate_XmlFile {
         _transactionIterator.nextTransaction();
         _transactionIterator.nextTransaction();
         UpdateProductTransaction transaction = (UpdateProductTransaction) _transactionIterator
-        .nextTransaction();
+                .nextTransaction();
         assertThat(transaction, notNullValue());
-        assertThat(transaction.getProductId(),equalTo("000003"));
-        assertThat(transaction.getProductDescription(),equalTo("Product Three Reviewed"));
-        assertThat(transaction.getProductPrice(),equalTo(234.98));
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000003"));
+        assertThat(transaction.getProductDescription(), equalTo("Product Three Reviewed"));
+        assertThat(transaction.getProductPrice(), equalTo(234.98));
     }
 
-	@Test
-	public void should_Return_Sixth_Transaction_In_File() {
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		_transactionIterator.nextTransaction();
-		DeleteProductTransaction transaction = (DeleteProductTransaction) _transactionIterator
-		.nextTransaction();
-		assertThat(transaction, notNullValue());
-		
-        assertThat(transaction.getProductId(),equalTo("000001"));
-	}
+    @Test
+    public void should_Return_Sixth_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        DeleteProductTransaction transaction = (DeleteProductTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+
+        assertThat(transaction.getProductId(), equalTo("0000000000000000000000001"));
+    }
+
+    @Test
+    public void should_Return_Seventh_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        CreateCustomerTransaction transaction = (CreateCustomerTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+
+        assertThat(transaction.getCustomerId(), equalTo("0000000000000000000000001"));
+        assertThat(transaction.getCustomerFirstName(), equalTo("First Name"));
+        assertThat(transaction.getCustomerLastName(), equalTo("Last Name"));
+        assertThat(transaction.getCustomerAddress(), equalTo("Address"));
+    }
+
+    @Test
+    public void should_Return_Eighth_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        UpdateCustomerTransaction transaction = (UpdateCustomerTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+
+        assertThat(transaction.getCustomerId(), equalTo("0000000000000000000000002"));
+        assertThat(transaction.getCustomerFirstName(), equalTo("Updated First Name"));
+        assertThat(transaction.getCustomerLastName(), equalTo("Updated Last Name"));
+        assertThat(transaction.getCustomerAddress(), equalTo("Updated Address"));
+    }
+
+    @Test
+    public void should_Return_Nineth_Transaction_In_File() {
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        _transactionIterator.nextTransaction();
+        DeleteCustomerTransaction transaction = (DeleteCustomerTransaction) _transactionIterator
+                .nextTransaction();
+        assertThat(transaction, notNullValue());
+
+        assertThat(transaction.getCustomerId(), equalTo("0000000000000000000000003"));
+    }
 }

@@ -1,4 +1,4 @@
-package shz.mock_comparison;
+package shz.eprocurement;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -6,14 +6,20 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static shz.mock_comparison.utils.CustomAssertions.then_AnExceptionShoulBeRaised;
+import static shz.eprocurement.utils.CustomAssertions.then_AnExceptionShoulBeRaised;
 
 import org.junit.Test;
 
+import shz.eprocurement.NoMoreTransactionInIterator;
+import shz.eprocurement.Transaction;
+import shz.eprocurement.TransactionIterator;
+import shz.eprocurement.TransactionParser;
+import shz.eprocurement.TransactionSourceReader;
+
 /**
- * 
+ *
  * @author Stephan Huez
- * 
+ *
  */
 public class Test_TransactionIterator {
 

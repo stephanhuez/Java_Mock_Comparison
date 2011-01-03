@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+	<CreateProduct>
+		<id>0000000000000000000000001</id>
+		<description>Product One</description>
+		<price>76.49</price>
+	</CreateProduct>
+	<UpdateProduct>
+		<id>0000000000000000000000001</id>
+		<description>Product One</description>
+		<price>134.98</price>
+	</UpdateProduct>
+	<CreateProduct>
+		<id>0000000000000000000000002</id>
+		<description>Product Two</description>
+		<price>999.99</price>
+	</CreateProduct>
+	<CreateProduct>
+		<id>0000000000000000000000003</id>
+		<description>Product Three</description>
+		<price>194.98</price>
+	</CreateProduct>
+	<UpdateProduct>
+		<id>0000000000000000000000003</id>
+		<description>Product Three Reviewed</description>
+		<price>234.98</price>
+	</UpdateProduct>
+	<DeleteProduct>
+		<id>0000000000000000000000001</id>
+	</DeleteProduct>
+	<CreateCustomer>
+		<id>0000000000000000000000001</id>
+		<firstName>First Name</firstName>
+		<lastName>Last Name</lastName>
+		<address>Address</address>
+	</CreateCustomer>
+	<UpdateCustomer>
+		<id>0000000000000000000000002</id>
+		<firstName>Updated First Name</firstName>
+		<lastName>Updated Last Name</lastName>
+		<address>Updated Address</address>
+	</UpdateCustomer>
+	<DeleteCustomer>
+		<id>0000000000000000000000003</id>
+	</DeleteCustomer>
+</transactions>
